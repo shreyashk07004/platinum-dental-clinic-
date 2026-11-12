@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import { site } from '../data/site';
-import TopStrip from '../components/ui/TopStrip.astro';
 import Header from '../components/ui/Header.astro';
 import FloatingWhatsApp from '../components/ui/FloatingWhatsApp.astro';
 import MobileActionBar from '../components/ui/MobileActionBar.astro';
@@ -63,7 +62,6 @@ const jsonLd = {
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:bg-white focus:px-4 focus:py-2">
       Skip to content
     </a>
-    <TopStrip />
     <Header />
     <main id="main">
       <slot />

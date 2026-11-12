@@ -18,18 +18,16 @@ const tidy = (t) => t.replace(/:00 /g, ' ');
     <div>
       <h2 class="font-display text-[22px] font-bold leading-tight text-ink">OPD hours</h2>
       <OpenBadge class="mt-1.5" />
+      <p class="mt-1 text-[13.5px] text-slate" data-today-line></p>
     </div>
   </div>
 
   {/* Timings */}
-  <dl class="grid gap-2 border-line sm:grid-cols-3 sm:gap-6 md:border-l md:pl-8" data-hours>
+  <dl class="grid gap-2 border-line sm:grid-cols-3 sm:gap-6 md:border-l md:pl-8">
     {
       clinicHours.summary.map((r) => (
-        <div class="flex items-baseline justify-between gap-4 sm:block" data-on={r.on.join(',')}>
-          <dt class="text-[13.5px] text-slate-soft">
-            {r.days}
-            <span data-today class="ml-1 hidden text-[11px] font-bold uppercase tracking-wide text-action">· Today</span>
-          </dt>
+        <div class="flex items-baseline justify-between gap-4 sm:block">
+          <dt class="text-[13.5px] text-slate-soft">{r.days}</dt>
           <dd class="font-display text-[16.5px] font-semibold text-ink sm:mt-0.5">{tidy(r.time)}</dd>
         </div>
       ))
@@ -42,15 +40,21 @@ const tidy = (t) => t.replace(/:00 /g, ' ');
 </div>
 
 <script>
+  import { clinicHours } from '../../data/hours';
   import { clinicNow } from '../../utils/hours';
 
-  // Mark today's row
-  const day = String(clinicNow().day);
-  document.querySelectorAll<HTMLElement>('[data-hours] [data-on]').forEach((row) => {
-    if ((row.dataset.on || '').split(',').includes(day)) {
-      row.querySelector('[data-today]')?.classList.remove('hidden');
+  // Plain-language line: "Today (Thursday): 10 am – 10 pm"
+  const names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const showToday = () => {
+    const { day } = clinicNow();
+    const row = clinicHours.summary.find((r) => r.on.includes(day));
+    const line = document.querySelector('[data-today-line]');
+    if (line) {
+      line.textContent = `Today (${names[day]}): ${row ? row.time.replace(/:00 /g, ' ') : 'Closed'}`;
     }
-  });
+  };
+  showToday();
+  setInterval(showToday, 60000);
 
   // Lazy-load the 3D clock once the card is near the viewport
   const el = document.querySelector<HTMLElement>('[data-clock]');
