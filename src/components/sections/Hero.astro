@@ -1,12 +1,26 @@
 ---
-import { Phone, ShieldCheck, ScanLine, FileText, ArrowRight } from '@lucide/astro';
+import { Phone, ArrowRight, Clock, Sun, Moon } from '@lucide/astro';
 import { site } from '../../data/site';
 import { clinicHours } from '../../data/hours';
+import { formatTime } from '../../utils/hours';
 import { waLink, quickMessage } from '../../utils/whatsapp';
 import OpenBadge from '../ui/OpenBadge.astro';
 import WhatsAppIcon from '../ui/WhatsAppIcon.astro';
 
-const factIcons = [ShieldCheck, ScanLine, FileText];
+// Week strip (Mon → Sun) built from the session data, so it stays in sync with hours.js.
+const toMin = (t) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3));
+const range = (s) => (s ? `${formatTime(toMin(s.from))} – ${formatTime(toMin(s.to))}` : null);
+const week = [1, 2, 3, 4, 5, 6, 0].map((n) => {
+  const sessions = clinicHours.sessions[n] || [];
+  return {
+    n,
+    short: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][n],
+    morning: range(sessions.find((s) => toMin(s.from) < 720)),
+    evening: range(sessions.find((s) => toMin(s.from) >= 720)),
+  };
+});
+const [morning, evening, sunday] = clinicHours.summary.map((r) => r.time);
+const todayOn = 'bg-enamel ring-1 ring-action/40';
 ---
 
 <section aria-labelledby="hero-title" class="relative">
@@ -53,46 +67,86 @@ const factIcons = [ShieldCheck, ScanLine, FileText];
     </div>
   </div>
 
-  {/* Overlapping strip: facts + hours card */}
+  {/* Overlapping OPD hours card: live status + weekly timetable */}
   <div class="wrap relative -mt-20 md:-mt-24">
-    <div class="grid overflow-hidden rounded-md border border-line bg-white lg:grid-cols-12">
-      <ul class="grid divide-y divide-line sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:col-span-8">
-        {
-          site.facts.map((f, i) => {
-            const Icon = factIcons[i] || ShieldCheck;
-            return (
-              <li class="flex gap-3.5 p-6 lg:items-center lg:p-7">
-                <Icon class="mt-0.5 h-6 w-6 shrink-0 text-clinic" stroke-width={1.6} />
-                <div>
-                  <p class="font-display text-[16.5px] font-bold text-ink">{f.title}</p>
-                  <p class="mt-1 text-[14px] leading-snug text-slate-soft">{f.text}</p>
-                </div>
-              </li>
-            );
-          })
-        }
-      </ul>
-      <div class="bg-action p-6 text-white lg:col-span-4 lg:p-7">
-        <div class="flex items-center justify-between gap-3">
-          <h2 class="font-display text-[17px] font-bold text-white">OPD hours</h2>
-          <span class="text-[12.5px] text-white/70">Walk-ins welcome</span>
+    <div class="grid overflow-hidden rounded-md border border-line bg-white shadow-[0_18px_40px_-24px_rgba(15,40,70,0.35)] lg:grid-cols-12">
+      {/* Left: status + actions */}
+      <div class="relative overflow-hidden bg-action p-7 text-white md:p-9 lg:col-span-4">
+        <Clock class="pointer-events-none absolute -bottom-10 -right-10 h-44 w-44 text-white/10" stroke-width={1.2} aria-hidden="true" />
+        <OpenBadge tone="dark" class="rounded-sm bg-white/10 px-2.5 py-1" />
+        <h2 class="mt-4 font-display text-[26px] font-bold leading-tight text-white md:text-[28px]">OPD hours</h2>
+        <p class="mt-2 max-w-[18rem] text-[14.5px] text-white/80">
+          Walk-ins welcome Monday to Saturday. Sundays by appointment.
+        </p>
+        <div class="relative mt-6 flex flex-wrap gap-x-5 gap-y-3">
+          <a href="/book" class="inline-flex items-center gap-1.5 rounded-sm bg-white px-4 py-2.5 font-display text-[14.5px] font-semibold text-action hover:bg-enamel">
+            Choose a time slot <ArrowRight class="h-4 w-4" />
+          </a>
+          <a href={`tel:${site.phoneRaw}`} class="inline-flex items-center gap-1.5 font-display text-[14.5px] font-semibold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">
+            <Phone class="h-4 w-4" /> Call
+          </a>
         </div>
-        <dl class="mt-3 space-y-1.5 text-[14px]">
+      </div>
+
+      {/* Right: week at a glance */}
+      <div class="p-6 md:p-8 lg:col-span-8">
+        <div class="grid grid-cols-7 gap-1.5 sm:gap-2.5" data-week data-today={todayOn}>
           {
-            clinicHours.summary.map((r) => (
-              <div class="flex justify-between gap-3 border-b border-white/15 pb-1.5 last:border-0">
-                <dt class="text-white/80">
-                  {r.days} <span class="text-white/55">· {r.note}</span>
-                </dt>
-                <dd class="whitespace-nowrap font-semibold">{r.time}</dd>
+            week.map((d) => (
+              <div data-day={d.n} class="flex flex-col items-center gap-1.5 rounded-md px-0.5 py-2.5 transition-colors sm:gap-2 sm:px-1">
+                <span class="font-display text-[12.5px] font-bold uppercase tracking-wide text-ink sm:text-[13.5px]">{d.short}</span>
+                <span
+                  class:list={[
+                    'flex h-9 w-full items-center justify-center rounded-sm sm:h-10',
+                    d.morning ? (d.n === 0 ? 'border border-dashed border-action bg-white text-action' : 'bg-clinic-light text-action') : 'border border-dashed border-line text-line',
+                  ]}
+                  title={d.morning ? `Morning ${d.morning}` : 'Closed'}
+                >
+                  <Sun class="h-4 w-4" stroke-width={1.8} />
+                </span>
+                <span
+                  class:list={[
+                    'flex h-9 w-full items-center justify-center rounded-sm sm:h-10',
+                    d.evening ? 'bg-action text-white' : 'border border-dashed border-line text-line',
+                  ]}
+                  title={d.evening ? `Evening ${d.evening}` : 'Closed'}
+                >
+                  <Moon class="h-4 w-4" stroke-width={1.8} />
+                </span>
+                <span data-today-label class="invisible text-[10.5px] font-semibold uppercase tracking-wide text-action">Today</span>
               </div>
             ))
           }
+        </div>
+
+        <dl class="mt-4 grid gap-3 border-t border-line pt-5 text-[14.5px] sm:grid-cols-3 md:text-[15px]">
+          <div class="flex items-start gap-2.5">
+            <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-sm bg-clinic-light text-action"><Sun class="h-3.5 w-3.5" /></span>
+            <div><dt class="text-slate-soft">Morning · Mon–Sat</dt><dd class="font-semibold text-ink">{morning}</dd></div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-sm bg-action text-white"><Moon class="h-3.5 w-3.5" /></span>
+            <div><dt class="text-slate-soft">Evening · Mon–Sat</dt><dd class="font-semibold text-ink">{evening}</dd></div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-sm border border-dashed border-action text-action"><Sun class="h-3.5 w-3.5" /></span>
+            <div><dt class="text-slate-soft">Sunday · appointment</dt><dd class="font-semibold text-ink">{sunday}</dd></div>
+          </div>
         </dl>
-        <a href="/book" class="mt-4 inline-flex items-center gap-1.5 font-display text-[14px] font-semibold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">
-          Choose a time slot <ArrowRight class="h-4 w-4" />
-        </a>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  import { clinicNow } from '../../utils/hours';
+
+  const week = document.querySelector<HTMLElement>('[data-week]');
+  if (week) {
+    const on = (week.dataset.today || '').split(' ');
+    const { day } = clinicNow();
+    const col = week.querySelector<HTMLElement>(`[data-day="${day}"]`);
+    col?.classList.add(...on);
+    col?.querySelector('[data-today-label]')?.classList.remove('invisible');
+  }
+</script>

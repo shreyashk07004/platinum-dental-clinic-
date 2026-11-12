@@ -2,14 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
 import Hero from '../components/sections/Hero.astro';
+import Doctors from '../components/sections/Doctors.astro';
 import About from '../components/sections/About.astro';
 import SymptomFinder from '../components/sections/SymptomFinder.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
+import FAQ from '../components/sections/FAQ.astro';
 ---
 
 <Layout preloadImage="/images/hero-consult.jpg">
   <Hero />
+  <Doctors />
   <About />
   <SymptomFinder />
   {site.showTestimonials && <Testimonials />}
+  <FAQ />
 </Layout>

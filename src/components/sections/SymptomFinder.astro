@@ -1,12 +1,10 @@
 ---
 import { ArrowRight, CircleExclamationPoint } from '@lucide/astro';
-import { symptoms } from '../../data/symptoms';
-import { treatments } from '../../data/treatments';
+import { services as symptoms } from '../../data/services';
 import { waLink, symptomMessage } from '../../utils/whatsapp';
 import ToothArch from '../motifs/ToothArch.astro';
 import WhatsAppIcon from '../ui/WhatsAppIcon.astro';
 
-const byId = Object.fromEntries(treatments.map((t) => [t.id, t]));
 const activeId = symptoms[0].id;
 const tabOn = 'border-white bg-white text-ink';
 const tabOff = 'border-white/35 text-white hover:border-white';
@@ -63,23 +61,30 @@ const tabOff = 'border-white/35 text-white hover:border-white';
               <p class="mt-3 font-display text-[17px] font-semibold text-ink">{s.likely}</p>
               <p class="mt-2 text-[15.5px]">{s.advice}</p>
 
-              <p class="mt-6 text-[12px] font-semibold uppercase tracking-[0.14em] text-slate-soft">What we may suggest</p>
-              <ul class="mt-2 divide-y divide-line border-y border-line">
-                {s.treatments.map((id) => (
-                  <li>
-                    <button
-                      type="button"
-                      data-book={byId[id].name}
-                      class="group flex w-full items-center justify-between py-3 text-left font-display text-[16px] font-semibold text-ink hover:text-action"
-                    >
-                      {byId[id].name}
-                      <span class="flex items-center gap-1 text-[13px] text-slate-soft group-hover:text-action">
-                        Book <ArrowRight class="h-4 w-4" />
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <div class="mt-6 border-y border-line">
+                {s.href ? (
+                  <a
+                    href={s.href}
+                    class="group flex w-full items-center justify-between py-3 text-left font-display text-[16px] font-semibold text-ink hover:text-action"
+                  >
+                    Book online
+                    <span class="flex items-center gap-1 text-[13px] text-slate-soft group-hover:text-action">
+                      Choose a slot <ArrowRight class="h-4 w-4" />
+                    </span>
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    data-book={s.label}
+                    class="group flex w-full items-center justify-between py-3 text-left font-display text-[16px] font-semibold text-ink hover:text-action"
+                  >
+                    {s.label}
+                    <span class="flex items-center gap-1 text-[13px] text-slate-soft group-hover:text-action">
+                      Book <ArrowRight class="h-4 w-4" />
+                    </span>
+                  </button>
+                )}
+              </div>
 
               <a href={waLink(symptomMessage(s.label))} target="_blank" rel="noopener noreferrer" class="btn-primary mt-7 w-full sm:w-auto">
                 <WhatsAppIcon class="h-[18px] w-[18px]" /> Ask the doctor on WhatsApp

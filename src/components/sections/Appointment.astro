@@ -2,7 +2,7 @@
 import { Phone, CircleCheck } from '@lucide/astro';
 import { site } from '../../data/site';
 import { doctors } from '../../data/doctors';
-import { treatments } from '../../data/treatments';
+import { services } from '../../data/services';
 import { clinicHours } from '../../data/hours';
 import WhatsAppIcon from '../ui/WhatsAppIcon.astro';
 
@@ -42,8 +42,7 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
         <div>
           <label for="b-treat" class="label">Reason for visit</label>
           <select id="b-treat" name="treatment" class="field">
-            {treatments.map((t) => <option selected={t.name === 'Check-up & consultation'}>{t.name}</option>)}
-            <option>Pain / emergency</option>
+            {services.filter((s) => !s.href).map((s) => <option selected={s.label === 'Check-ups'}>{s.label}</option>)}
             <option>Not sure — need a check-up</option>
           </select>
         </div>
@@ -140,14 +139,16 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
     });
     date.addEventListener('change', renderSlots);
 
-    // Pre-select a treatment chosen elsewhere on the page (finder, treatment drawer).
-    document.addEventListener('book:treatment', (e) => {
-      const value = (e as CustomEvent<string>).detail;
-      if (value) treatment.value = value;
-    });
+    // Pre-select a treatment chosen elsewhere (finder, treatment drawer). Names that
+    // aren't in the service list (e.g. "Braces") are added so the choice isn't lost.
+    const selectTreatment = (value: string | null) => {
+      if (!value) return;
+      if (![...treatment.options].some((o) => o.value === value)) treatment.add(new Option(value, value));
+      treatment.value = value;
+    };
+    document.addEventListener('book:treatment', (e) => selectTreatment((e as CustomEvent<string>).detail));
     // ...or arriving from another page via /book?treatment=Name.
-    const fromUrl = new URLSearchParams(window.location.search).get('treatment');
-    if (fromUrl && [...treatment.options].some((o) => o.value === fromUrl)) treatment.value = fromUrl;
+    selectTreatment(new URLSearchParams(window.location.search).get('treatment'));
 
     const validate = () => {
       const er: Record<string, string> = {};
