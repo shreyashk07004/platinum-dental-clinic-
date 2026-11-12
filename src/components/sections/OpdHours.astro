@@ -1,0 +1,73 @@
+---
+// Compact OPD hours card: small 3D clock (three.js, lazy-loaded) + live status,
+// three rows of timings, and a booking button. Reads from src/data/hours.js.
+import { Clock, ArrowRight } from '@lucide/astro';
+import { clinicHours } from '../../data/hours';
+import OpenBadge from '../ui/OpenBadge.astro';
+
+// "10:00 am – 10:00 pm" → "10 am – 10 pm"
+const tidy = (t) => t.replace(/:00 /g, ' ');
+---
+
+<div class="grid items-center gap-5 rounded-md border border-line bg-white p-5 shadow-[0_18px_40px_-24px_rgba(15,40,70,0.35)] md:grid-cols-[auto_1fr_auto] md:gap-8 md:p-6">
+  {/* Clock + title */}
+  <div class="flex items-center gap-4">
+    <div class="relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-action" data-clock>
+      <Clock class="absolute inset-0 m-auto h-9 w-9 text-white" stroke-width={1.6} data-clock-fallback aria-hidden="true" />
+    </div>
+    <div>
+      <h2 class="font-display text-[22px] font-bold leading-tight text-ink">OPD hours</h2>
+      <OpenBadge class="mt-1.5" />
+    </div>
+  </div>
+
+  {/* Timings */}
+  <dl class="grid gap-2 border-line sm:grid-cols-3 sm:gap-6 md:border-l md:pl-8" data-hours>
+    {
+      clinicHours.summary.map((r) => (
+        <div class="flex items-baseline justify-between gap-4 sm:block" data-on={r.on.join(',')}>
+          <dt class="text-[13.5px] text-slate-soft">
+            {r.days}
+            <span data-today class="ml-1 hidden text-[11px] font-bold uppercase tracking-wide text-action">· Today</span>
+          </dt>
+          <dd class="font-display text-[16.5px] font-semibold text-ink sm:mt-0.5">{tidy(r.time)}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <a href="/book" class="btn-primary justify-self-start whitespace-nowrap md:justify-self-end">
+    Book a slot <ArrowRight class="h-4 w-4" />
+  </a>
+</div>
+
+<script>
+  import { clinicNow } from '../../utils/hours';
+
+  // Mark today's row
+  const day = String(clinicNow().day);
+  document.querySelectorAll<HTMLElement>('[data-hours] [data-on]').forEach((row) => {
+    if ((row.dataset.on || '').split(',').includes(day)) {
+      row.querySelector('[data-today]')?.classList.remove('hidden');
+    }
+  });
+
+  // Lazy-load the 3D clock once the card is near the viewport
+  const el = document.querySelector<HTMLElement>('[data-clock]');
+  if (el) {
+    const io = new IntersectionObserver(
+      async (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        try {
+          const { mountClock } = await import('../../scripts/opdClock.js');
+          if (mountClock(el, clinicNow)) el.querySelector('[data-clock-fallback]')?.remove();
+        } catch {
+          /* keep the plain clock icon */
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(el);
+  }
+</script>

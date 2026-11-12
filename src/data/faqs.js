@@ -27,4 +27,8 @@ export const faqs = [
     q: 'What if I have a dental emergency?',
     a: 'Call the clinic number. We fit emergencies in the same day during clinic hours (until 10 pm on weekdays). Outside those hours, leave a WhatsApp message and the doctor will advise you or see you first thing next morning.',
   },
+  {
+    q: 'Is there parking?',
+    a: 'Two-wheelers can park right in front of the building. Car parking is available on the 4th Lane side road. The clinic is on the third floor; there is a lift.',
+  },
 ];

@@ -1,5 +1,5 @@
 ---
-import { MapPin, Phone, Mail, Navigation } from '@lucide/astro';
+import { MapPin, Phone, Mail, Car, Navigation } from '@lucide/astro';
 import { site } from '../../data/site';
 import { clinicHours } from '../../data/hours';
 import OpenBadge from '../ui/OpenBadge.astro';
@@ -25,6 +25,10 @@ const row = 'flex gap-3.5 border-b border-line py-4';
         <li class={row}>
           <Mail class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
           <a href={`mailto:${site.email}`} class="hover:text-action">{site.email}</a>
+        </li>
+        <li class={row}>
+          <Car class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
+          <span>{site.parking}</span>
         </li>
       </ul>
       <dl class="mt-6 space-y-1 text-[15px]">

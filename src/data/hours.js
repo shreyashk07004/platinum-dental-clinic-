@@ -15,9 +15,9 @@ export const clinicHours = {
   },
   // Short rows shown in the hours card and footer
   summary: [
-    { days: 'Mon – Fri', time: '10:00 am – 10:00 pm' },
-    { days: 'Saturday', time: '10:00 am – 8:00 pm' },
-    { days: 'Sunday', time: '10:00 am – 2:00 pm' },
+    { days: 'Mon – Fri', time: '10:00 am – 10:00 pm', on: [1, 2, 3, 4, 5] },
+    { days: 'Saturday', time: '10:00 am – 8:00 pm', on: [6] },
+    { days: 'Sunday', time: '10:00 am – 2:00 pm', on: [0] },
   ],
   emergencyNote: 'Severe pain or swelling? Call — we fit emergencies in the same day, until 10 pm on weekdays.',
 };
