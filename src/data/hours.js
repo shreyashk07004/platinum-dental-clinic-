@@ -1,22 +1,23 @@
-// OPD timings. Days use JS numbering: 0 = Sunday … 6 = Saturday.
-// Each day can have several sessions (morning / evening). Times are 24h "HH:MM".
+// OPD timings, as listed on the clinic's Google Business Profile.
+// Days use JS numbering: 0 = Sunday … 6 = Saturday.
+// Each day can have several sessions if the clinic ever adds a lunch break. Times are 24h "HH:MM".
 export const clinicHours = {
   timezone: 'Asia/Kolkata',
   slotMinutes: 30,
   sessions: {
-    0: [{ from: '10:00', to: '13:00' }], // Sunday — morning only, by appointment
-    1: [{ from: '10:00', to: '13:30' }, { from: '17:00', to: '20:30' }],
-    2: [{ from: '10:00', to: '13:30' }, { from: '17:00', to: '20:30' }],
-    3: [{ from: '10:00', to: '13:30' }, { from: '17:00', to: '20:30' }],
-    4: [{ from: '10:00', to: '13:30' }, { from: '17:00', to: '20:30' }],
-    5: [{ from: '10:00', to: '13:30' }, { from: '17:00', to: '20:30' }],
-    6: [{ from: '10:00', to: '13:30' }, { from: '17:00', to: '20:30' }],
+    0: [{ from: '10:00', to: '14:00' }], // Sunday — short day
+    1: [{ from: '10:00', to: '22:00' }],
+    2: [{ from: '10:00', to: '22:00' }],
+    3: [{ from: '10:00', to: '22:00' }],
+    4: [{ from: '10:00', to: '22:00' }],
+    5: [{ from: '10:00', to: '22:00' }],
+    6: [{ from: '10:00', to: '20:00' }], // Saturday — closes earlier
   },
   // Short rows shown in the hours card and footer
   summary: [
-    { days: 'Mon – Sat', time: '10:00 am – 1:30 pm', note: 'Morning' },
-    { days: 'Mon – Sat', time: '5:00 pm – 8:30 pm', note: 'Evening' },
-    { days: 'Sunday', time: '10:00 am – 1:00 pm', note: 'Appointment only' },
+    { days: 'Mon – Fri', time: '10:00 am – 10:00 pm' },
+    { days: 'Saturday', time: '10:00 am – 8:00 pm' },
+    { days: 'Sunday', time: '10:00 am – 2:00 pm' },
   ],
-  emergencyNote: 'Severe pain or swelling after hours? Call — we answer until 10 pm.',
+  emergencyNote: 'Severe pain or swelling? Call — we fit emergencies in the same day, until 10 pm on weekdays.',
 };

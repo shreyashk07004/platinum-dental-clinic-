@@ -31,7 +31,7 @@ import ToothArch from '../motifs/ToothArch.astro';
         {
           clinicHours.summary.map((r) => (
             <div class="flex flex-wrap gap-x-3">
-              <dt class="sm:w-52 sm:shrink-0">{r.days} · {r.note}</dt>
+              <dt class="sm:w-52 sm:shrink-0">{r.days}{r.note && ` · ${r.note}`}</dt>
               <dd class="text-white">{r.time}</dd>
             </div>
           ))
@@ -42,11 +42,7 @@ import ToothArch from '../motifs/ToothArch.astro';
   <div class="relative border-t border-white/10">
     <div class="wrap flex flex-col gap-2 py-5 text-[13px] text-white/60 sm:flex-row sm:justify-between">
       <p>© <span data-year>{new Date().getFullYear()}</span> {site.name}. Information on this site is general and not a substitute for a check-up.</p>
-      <p>
-        Concept website by{' '}
-        <a href={site.agencyUrl} target="_blank" rel="noopener noreferrer" class="font-semibold text-white hover:underline">{site.agencyName}</a>
-      </p>
-    </div>
+          </div>
   </div>
 </footer>
 

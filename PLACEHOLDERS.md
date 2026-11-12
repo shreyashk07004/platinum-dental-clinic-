@@ -1,4 +1,4 @@
-# Placeholders — Smitam Dental Care
+# Placeholders — Platinum Dental Care
 
 Everything a real clinic would change. Content lives in `src/data/*`. No layout code needs editing.
 
@@ -6,12 +6,12 @@ Everything a real clinic would change. Content lives in `src/data/*`. No layout 
 
 | Item | Current (fictional) value | Notes |
 |---|---|---|
-| `name` / `shortName` | Smitam Dental Care / Smitam | Also update `<title>`, meta and JSON-LD in `src/layouts/Layout.astro` |
+| `name` / `shortName` | Platinum Dental Care / Platinum | Also update `<title>`, meta and JSON-LD in `src/layouts/Layout.astro` |
 | `marathiWord` | स्मितम् | Optional; used once in About |
 | `established` | 2014 | Shown as the outline numeral |
 | `phoneDisplay` / `phoneRaw` | +91 87660 36310 | LocalLeap's number in demos |
 | `whatsapp` | 918766036310 | **Keep LocalLeap's number for demos** so test bookings reach us |
-| `email` | hello@smitamdental.in | Fictional |
+| `email` | hello@platinumdental.in | Fictional |
 | `addressLines`, `landmark`, `parking` | Shree Complex, Rajarampuri | Fictional address |
 | `mapsLink`, `mapEmbed`, `googleReviewsLink` | Generic Rajarampuri search | Replace with the clinic's Google Maps place link and embed |
 | `facts` (3) | Sterilised kit · RVG X-ray · Written plan | Change only to things the clinic really does |

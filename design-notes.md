@@ -1,4 +1,4 @@
-# Design notes — Smitam Dental Care (dentist concept sample)
+# Design notes — Platinum Dental Care (dentist concept sample)
 
 Written before building, from studying the references in Chrome at 1440px (computed fonts and colours were read from the live pages) and from page text where the browser blocked a site.
 

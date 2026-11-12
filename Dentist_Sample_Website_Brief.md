@@ -3,7 +3,7 @@
 > This brief describes the site that was built in this folder. Use it to rebuild or extend the site with Antigravity or Claude Code, or as the template for future clinic briefs. The full reference study is in `design-notes.md`.
 
 ## Project overview
-- **Business (fictional):** Smitam Dental Care, a two-doctor family + specialist clinic
+- **Business (fictional):** Platinum Dental Care, a two-doctor family + specialist clinic
 - **Tagline:** Family & specialist dentistry, Rajarampuri
 - **Location placeholder:** 1st Floor, Shree Complex, 4th Lane, Rajarampuri, Kolhapur 416008
 - **Hours:** Mon–Sat 10:00–1:30 & 5:00–8:30 · Sunday 10:00–1:00 (appointment only)
@@ -58,4 +58,4 @@
 - [x] Build passes; no overflow at 360–1440
 - [ ] Confirm agency domain (`localleapdigital.com` vs `localleap.digital`)
 - [ ] Agree "from ₹" prices with the partner before showing them to real dentists
-- [ ] Add to the agency site's `projects.js` with `screenshots/smitam_1440_hero.png`
+- [ ] Add to the agency site's `projects.js` with `screenshots/platinum_1440_hero.png`

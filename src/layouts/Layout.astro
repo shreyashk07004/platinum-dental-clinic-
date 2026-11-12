@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import { site } from '../data/site';
-import ConceptBanner from '../components/ui/ConceptBanner.astro';
 import TopStrip from '../components/ui/TopStrip.astro';
 import Header from '../components/ui/Header.astro';
 import FloatingWhatsApp from '../components/ui/FloatingWhatsApp.astro';
@@ -9,30 +8,30 @@ import MobileActionBar from '../components/ui/MobileActionBar.astro';
 import Footer from '../components/sections/Footer.astro';
 
 const {
-  title = 'Smitam Dental Care — Dentist in Rajarampuri, Kolhapur',
-  description = "Smitam Dental Care, Rajarampuri, Kolhapur. Check-ups, root canal treatment, braces and clear aligners, implants and kids' dentistry. Book your visit on WhatsApp.",
+  title = 'Platinum Dental Care — Dentist in Nagala Park, Kolhapur',
+  description = "Platinum Dental Care, Nagala Park, Kolhapur. Check-ups, root canal treatment, braces and clear aligners, implants and kids' dentistry. Book your visit on WhatsApp.",
   preloadImage,
 } = Astro.props;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Dentist',
-  name: 'Smitam Dental Care',
+  name: 'Platinum Dental Care',
   image: '/images/clinic-operatory.jpg',
-  telephone: '+91-87660-36310',
+  telephone: '+91-97642-41177',
   priceRange: '₹₹',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '1st Floor, Shree Complex, 4th Lane, Rajarampuri',
+    streetAddress: '3rd Floor, Krystal Square, 100 Ft Road, near Khanvilkar petrol pump, Nagala Park',
     addressLocality: 'Kolhapur',
     addressRegion: 'Maharashtra',
-    postalCode: '416008',
+    postalCode: '416002',
     addressCountry: 'IN',
   },
   openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '10:00', closes: '13:30' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '17:00', closes: '20:30' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '10:00', closes: '13:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '22:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '10:00', closes: '20:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '10:00', closes: '14:00' },
   ],
 };
 ---
@@ -42,15 +41,13 @@ const jsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Concept demo: keep noindex until a real clinic signs off. Remove for a live client site. -->
-    <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#13294B" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Smitam Dental Care — Rajarampuri, Kolhapur" />
+    <meta property="og:title" content="Platinum Dental Care — Nagala Park, Kolhapur" />
     <meta property="og:description" content="Unhurried dental care for families. Written treatment plan and cost before we start. Book on WhatsApp." />
     <meta property="og:image" content="/og-image.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -66,7 +63,6 @@ const jsonLd = {
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:bg-white focus:px-4 focus:py-2">
       Skip to content
     </a>
-    {site.isConcept && <ConceptBanner />}
     <TopStrip />
     <Header />
     <main id="main">

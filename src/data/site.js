@@ -3,25 +3,22 @@
 // demo for a new dentist (see README → "30-minute rebrand").
 // ─────────────────────────────────────────────────────────────
 export const site = {
-  name: 'Smitam Dental Care',
-  shortName: 'Smitam',
-  marathiWord: 'स्मितम्', // "smile" — used once as a small accent
-  tagline: 'Family & specialist dentistry, Rajarampuri',
+  name: 'Platinum Dental Care',
+  shortName: 'Platinum',
+  tagline: 'Family & specialist dentistry, Nagala Park',
   established: 2014,
 
-  phoneDisplay: '+91 87660 36310',
-  phoneRaw: '+918766036310',
-  // Demo number = LocalLeap's own WhatsApp, so prospects' test bookings reach us.
-  whatsapp: '918766036310',
-  email: 'hello@smitamdental.in',
+  // From the clinic's Google Business Profile.
+  phoneDisplay: '+91 97642 41177',
+  phoneRaw: '+919764241177',
+  whatsapp: '919764241177',
+  email: 'hello@platinumdental.in',
 
-  addressLines: ['1st Floor, Shree Complex, 4th Lane', 'Rajarampuri, Kolhapur 416008'],
-  landmark: 'Above Mahalaxmi Medicals, near Rajarampuri Main Road',
-  parking: 'Two-wheeler parking in front; cars on the 4th Lane side road.',
-  mapsLink: 'https://maps.google.com/?q=Rajarampuri+Kolhapur',
-  mapEmbed:
-    'https://www.google.com/maps?q=Rajarampuri,+Kolhapur,+Maharashtra&output=embed',
-  googleReviewsLink: 'https://maps.google.com/?q=Rajarampuri+Kolhapur+dentist',
+  addressLines: ['3rd Floor, Krystal Square, 100 Ft Road', 'Nagala Park, Kolhapur 416002'],
+  landmark: 'Near Khanvilkar petrol pump',
+  mapsLink: 'https://www.google.com/maps/search/?api=1&query=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur',
+  mapEmbed: 'https://www.google.com/maps?q=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur&output=embed',
+  googleReviewsLink: 'https://www.google.com/maps/search/?api=1&query=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur',
 
   // Real facts shown in the hero strip (no counters, no invented numbers).
   facts: [
@@ -30,10 +27,6 @@ export const site = {
     { title: 'Written plan & cost', text: 'Before any treatment begins' },
   ],
 
-  // LocalLeap concept-demo settings
-  agencyName: 'LocalLeap Digital',
-  agencyUrl: 'https://localleapdigital.com',
-  isConcept: true,
   showTestimonials: false, // switch on only once real patient reviews exist
 };
 

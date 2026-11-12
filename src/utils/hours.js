@@ -28,7 +28,7 @@ export function clinicNow(date = new Date()) {
   return { day, minutes };
 }
 
-// { open: boolean, label: string } e.g. "Open · closes 1:30 pm" / "Closed · opens 5:00 pm"
+// { open: boolean, label: string } e.g. "Open now · until 10:00 pm" / "Closed · opens tomorrow 10:00 am"
 export function openStatus(date = new Date()) {
   const { day, minutes } = clinicNow(date);
   const today = clinicHours.sessions[day] || [];

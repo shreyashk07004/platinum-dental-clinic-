@@ -1,4 +1,4 @@
-# Smitam Dental Care — dentist concept website (LocalLeap Digital)
+# Platinum Dental Care — dentist concept website (LocalLeap Digital)
 
 A sample dental-clinic website used as a **reusable demo template** for dentist outreach. It is a single page built with Astro 7, Tailwind 3 and @lucide/astro. It ships as static HTML with a few small vanilla-JS scripts for the interactive parts, and needs no backend: bookings go through WhatsApp.
 
