@@ -140,7 +140,7 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
     date.addEventListener('change', renderSlots);
 
     // Pre-select a treatment chosen elsewhere (finder, treatment drawer). Names that
-    // aren't in the service list (e.g. "Braces") are added so the choice isn't lost.
+    // aren't in the service list (e.g. "Root canals") are added so the choice isn't lost.
     const selectTreatment = (value: string | null) => {
       if (!value) return;
       if (![...treatment.options].some((o) => o.value === value)) treatment.add(new Option(value, value));

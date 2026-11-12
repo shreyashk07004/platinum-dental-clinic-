@@ -19,13 +19,13 @@ export const doctors = [
   {
     id: 'aditi',
     name: 'Dr. Aditi Kulkarni',
-    degrees: 'BDS, MDS (Orthodontics)',
-    role: 'Orthodontist · Braces & clear aligners',
+    degrees: 'BDS, MDS (Paediatric Dentistry)',
+    role: 'Paediatric dentist · Children’s & cosmetic dentistry',
     regNo: 'MSDC Reg. No. A-XXXXX',
     image: '/images/doctor-aditi.jpg',
     imagePosition: '50% 20%',
-    bio: 'Aditi straightens teeth for teenagers and adults — metal and ceramic braces, and clear aligners for people who would rather not show their treatment. She also sees most of the clinic’s young patients.',
-    interests: ['Braces & aligners', 'Children’s dentistry', 'Habit correction (thumb-sucking)'],
+    bio: 'Aditi sees most of the clinic’s young patients, from a first check-up to fillings and sealants in milk teeth. She also looks after smile treatments for adults: whitening, teeth reshaping and veneers.',
+    interests: ['Paediatrics', 'Teeth whitening & cosmetic procedures', 'Teeth reshaping'],
     timings: [
       { days: 'Mon, Wed, Fri', time: '10:00 am – 1:30 pm' },
       { days: 'Tue – Sat', time: '5:00 pm – 8:30 pm' },

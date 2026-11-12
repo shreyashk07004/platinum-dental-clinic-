@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Gallery from '../components/sections/Gallery.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import { clinicFaqs } from '../data/faqs';
 ---
 
 <Layout
@@ -8,4 +10,5 @@ import Gallery from '../components/sections/Gallery.astro';
   description="Inside Platinum Dental Care — treatment rooms, sterilisation and equipment."
 >
   <Gallery />
+  <FAQ items={clinicFaqs} kicker="About the clinic" title="Hygiene, equipment and comfort." tone="enamel" />
 </Layout>

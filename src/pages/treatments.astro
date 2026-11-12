@@ -1,13 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Treatments from '../components/sections/Treatments.astro';
-import KidsCorner from '../components/sections/KidsCorner.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import { treatmentFaqs } from '../data/faqs';
 ---
 
 <Layout
   title="Treatments — Platinum Dental Care, Nagala Park, Kolhapur"
-  description="Check-ups, root canal treatment, braces and clear aligners, implants and kids' dentistry at Platinum Dental Care — what each takes and where the cost starts."
+  description="Check-ups, teeth cleaning, fillings, root canals, dental implants, dentures & bridges, veneers & crowns, teeth whitening, oral surgery and children's dentistry at Platinum Dental Care, Nagala Park, Kolhapur."
 >
   <Treatments />
-  <KidsCorner />
+  <FAQ items={treatmentFaqs} kicker="About treatments" title="Questions patients ask before treatment." tone="enamel" />
 </Layout>

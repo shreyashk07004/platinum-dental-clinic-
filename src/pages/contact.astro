@@ -1,11 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Contact from '../components/sections/Contact.astro';
+import ContactForm from '../components/sections/ContactForm.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import { contactFaqs } from '../data/faqs';
 ---
 
 <Layout
   title="Contact & directions — Platinum Dental Care, Nagala Park, Kolhapur"
-  description="Find Platinum Dental Care: 3rd Floor, Krystal Square, 100 Ft Road, Nagala Park, Kolhapur. Hours, phone and map."
+  description="Find Platinum Dental Care: 3rd Floor, Krystal Square, 100 Ft Road, Nagala Park, Kolhapur. Hours, phone, map and a contact form."
 >
   <Contact />
+  <ContactForm />
+  <FAQ items={contactFaqs} kicker="Getting here" title="Finding us and getting in touch." tone="enamel" />
 </Layout>

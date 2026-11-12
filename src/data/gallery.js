@@ -6,5 +6,5 @@ export const gallery = [
   { src: '/images/clinic-xray-monitor.jpg', alt: 'Digital dental X-ray on a monitor beside the chair', caption: 'Digital X-ray, shown on screen' },
   { src: '/images/clinic-instruments.jpg', alt: 'Dental handpieces hanging in a row', caption: 'Instruments, autoclaved after every patient' },
   { src: '/images/clinic-consult-desk.jpg', alt: 'Second dental chair with wooden flooring', caption: 'Room 2 — after the evening clean' },
-  { src: '/images/clinic-blue-chair.jpg', alt: 'Blue dental chair with equipment', caption: 'Orthodontic room', span: 'wide' },
+  { src: '/images/clinic-blue-chair.jpg', alt: 'Blue dental chair with equipment', caption: 'Second treatment room', span: 'wide' },
 ];

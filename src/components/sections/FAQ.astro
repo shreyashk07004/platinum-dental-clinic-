@@ -1,17 +1,39 @@
 ---
 import { Plus, Minus } from '@lucide/astro';
-import { faqs } from '../../data/faqs';
+import { faqs as generalFaqs } from '../../data/faqs';
+
+// Reusable FAQ accordion. Each page passes its own questions so no two pages
+// repeat the same set (duplicate FAQs across pages are ignored by Google).
+// Also emits FAQPage structured data for the questions shown.
+const {
+  items = generalFaqs,
+  kicker = 'Questions',
+  title = 'What patients usually ask us first.',
+  intro,
+  tone = 'white', // 'white' | 'enamel'
+} = Astro.props;
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
-<section id="faq" aria-labelledby="faq-title" class="py-20 md:py-28">
+<section id="faq" aria-labelledby="faq-title" class:list={['py-20 md:py-28', tone === 'enamel' && 'bg-enamel']}>
   <div class="wrap grid gap-10 lg:grid-cols-12">
     <div class="reveal lg:col-span-4">
-      <p class="kicker">Questions</p>
-      <h2 id="faq-title" class="h-section">What patients usually ask us first.</h2>
+      <p class="kicker">{kicker}</p>
+      <h2 id="faq-title" class="h-section">{title}</h2>
+      {intro && <p class="mt-5 max-w-sm text-[15.5px] text-slate-soft">{intro}</p>}
     </div>
     <ul class="reveal border-t border-ink lg:col-span-8" data-faq>
       {
-        faqs.map((f, i) => (
+        items.map((f, i) => (
           <li class="border-b border-line">
             <h3 class="text-[18px]">
               <button
@@ -32,6 +54,7 @@ import { faqs } from '../../data/faqs';
       }
     </ul>
   </div>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqLd)} />
 </section>
 
 <script>

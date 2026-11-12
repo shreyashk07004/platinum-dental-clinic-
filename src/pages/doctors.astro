@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Doctors from '../components/sections/Doctors.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import { doctorFaqs } from '../data/faqs';
 ---
 
 <Layout
@@ -8,4 +10,5 @@ import Doctors from '../components/sections/Doctors.astro';
   description="Meet the dentists at Platinum Dental Care, Nagala Park, Kolhapur."
 >
   <Doctors />
+  <FAQ items={doctorFaqs} kicker="About our doctors" title="Questions about who will treat you." />
 </Layout>

@@ -39,3 +39,15 @@ export function bookingMessage(f) {
   lines.push('', 'Please confirm the time. Thank you.');
   return lines.join('\n');
 }
+
+export function contactMessage(f) {
+  const lines = [
+    `*Contact form — ${site.name}*`,
+    '',
+    `*Name:* ${f.name.trim()}`,
+    `*Phone:* ${f.phone.trim()}`,
+  ];
+  if (f.email.trim()) lines.push(`*Email:* ${f.email.trim()}`);
+  lines.push(`*Subject:* ${f.topic}`, '', f.message.trim());
+  return lines.join('\n');
+}

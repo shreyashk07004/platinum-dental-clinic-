@@ -101,8 +101,8 @@ export const videos = [
     isSample: true,
   },
   {
-    title: 'Clear aligners',
-    caption: 'Straightening teeth without metal braces.',
+    title: 'Teeth whitening',
+    caption: 'A brighter smile in a single visit.',
     poster: '/images/aligner-smile.jpg',
     src: SAMPLE_CLIP,
     isSample: true,

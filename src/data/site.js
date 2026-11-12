@@ -18,7 +18,7 @@ export const site = {
   landmark: 'Near Khanvilkar petrol pump',
   parking: 'Two-wheeler parking in front; cars on the 4th Lane side road.', // TODO: confirm with clinic
   mapsLink: 'https://www.google.com/maps/search/?api=1&query=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur',
-  mapEmbed: 'https://www.google.com/maps?q=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur&output=embed',
+  mapEmbed: 'https://www.google.com/maps?q=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur&t=k&z=18&output=embed', // t=k = satellite view
   googleReviewsLink: 'https://www.google.com/maps?cid=14307867245017570191', // the clinic's own Google listing
 
   // Real facts shown in the hero strip (no counters, no invented numbers).
@@ -34,8 +34,6 @@ export const site = {
 export const nav = [
   { label: 'Treatments', href: '/treatments' },
   { label: 'Doctors', href: '/doctors' },
-  { label: 'Your first visit', href: '/first-visit' },
   { label: 'Clinic', href: '/clinic' },
-  { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ];
