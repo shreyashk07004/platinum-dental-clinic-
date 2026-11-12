@@ -38,10 +38,10 @@ export const site = {
 };
 
 export const nav = [
-  { label: 'Treatments', href: '#treatments' },
-  { label: 'Doctors', href: '#doctors' },
-  { label: 'Your first visit', href: '#first-visit' },
-  { label: 'Clinic', href: '#clinic' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Treatments', href: '/treatments' },
+  { label: 'Doctors', href: '/doctors' },
+  { label: 'Your first visit', href: '/first-visit' },
+  { label: 'Clinic', href: '/clinic' },
+  { label: 'FAQ', href: '/faq' },
+  { label: 'Contact', href: '/contact' },
 ];

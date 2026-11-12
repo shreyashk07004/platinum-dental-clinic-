@@ -145,6 +145,9 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
       const value = (e as CustomEvent<string>).detail;
       if (value) treatment.value = value;
     });
+    // ...or arriving from another page via /book?treatment=Name.
+    const fromUrl = new URLSearchParams(window.location.search).get('treatment');
+    if (fromUrl && [...treatment.options].some((o) => o.value === fromUrl)) treatment.value = fromUrl;
 
     const validate = () => {
       const er: Record<string, string> = {};

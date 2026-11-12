@@ -21,8 +21,18 @@ import { site } from '../../data/site';
   </div>
 </aside>
 
+<script is:inline>
+  // Runs immediately so a dismissed banner doesn't flash on the next page.
+  try {
+    if (sessionStorage.getItem('concept-banner-dismissed')) document.getElementById('concept-banner')?.remove();
+  } catch {}
+</script>
+
 <script>
   document.querySelector('[data-dismiss-banner]')?.addEventListener('click', () => {
     document.getElementById('concept-banner')?.remove();
+    try {
+      sessionStorage.setItem('concept-banner-dismissed', '1');
+    } catch {}
   });
 </script>

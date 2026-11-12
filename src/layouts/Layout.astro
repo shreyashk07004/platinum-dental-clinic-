@@ -1,5 +1,18 @@
 ---
 import '../styles/global.css';
+import { site } from '../data/site';
+import ConceptBanner from '../components/ui/ConceptBanner.astro';
+import TopStrip from '../components/ui/TopStrip.astro';
+import Header from '../components/ui/Header.astro';
+import FloatingWhatsApp from '../components/ui/FloatingWhatsApp.astro';
+import MobileActionBar from '../components/ui/MobileActionBar.astro';
+import Footer from '../components/sections/Footer.astro';
+
+const {
+  title = 'Smitam Dental Care — Dentist in Rajarampuri, Kolhapur',
+  description = "Smitam Dental Care, Rajarampuri, Kolhapur. Check-ups, root canal treatment, braces and clear aligners, implants and kids' dentistry. Book your visit on WhatsApp.",
+  preloadImage,
+} = Astro.props;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -31,8 +44,8 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Concept demo: keep noindex until a real clinic signs off. Remove for a live client site. -->
     <meta name="robots" content="noindex, nofollow" />
-    <title>Smitam Dental Care — Dentist in Rajarampuri, Kolhapur</title>
-    <meta name="description" content="Smitam Dental Care, Rajarampuri, Kolhapur. Check-ups, root canal treatment, braces and clear aligners, implants and kids' dentistry. Book your visit on WhatsApp." />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <meta name="theme-color" content="#13294B" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -45,12 +58,23 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Tiro+Devanagari+Marathi&family=Urbanist:wght@500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="preload" as="image" href="/images/hero-consult.jpg" />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
-    <slot />
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:bg-white focus:px-4 focus:py-2">
+      Skip to content
+    </a>
+    {site.isConcept && <ConceptBanner />}
+    <TopStrip />
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <FloatingWhatsApp />
+    <MobileActionBar />
 
     <script>
       // Scroll reveal
@@ -68,13 +92,19 @@ const jsonLd = {
       els.forEach((el) => io.observe(el));
 
       // Any element with data-book="Treatment name" pre-selects it in the
-      // booking form and scrolls there (replaces React's lifted state).
+      // booking form. If the form is on this page, scroll to it; otherwise
+      // go to the booking page with the treatment in the query string.
       document.addEventListener('click', (e) => {
         const target = e.target instanceof Element ? e.target.closest('[data-book]') : null;
         if (!target) return;
         const name = target.getAttribute('data-book') || '';
-        document.dispatchEvent(new CustomEvent('book:treatment', { detail: name }));
-        document.getElementById('book')?.scrollIntoView({ behavior: 'smooth' });
+        const book = document.getElementById('book');
+        if (book) {
+          document.dispatchEvent(new CustomEvent('book:treatment', { detail: name }));
+          book.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.location.href = name ? `/book?treatment=${encodeURIComponent(name)}` : '/book';
+        }
       });
     </script>
   </body>

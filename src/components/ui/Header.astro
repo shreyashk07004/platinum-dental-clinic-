@@ -2,6 +2,9 @@
 import { Menu, X, CalendarCheck } from '@lucide/astro';
 import { nav } from '../../data/site';
 import Logo from './Logo.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href) => path === href;
 ---
 
 <header id="top" class="sticky top-0 z-40 bg-white transition-shadow">
@@ -12,14 +15,14 @@ import Logo from './Logo.astro';
         {
           nav.map((n) => (
             <li>
-              <a href={n.href} class="link-underline py-1 hover:text-action">{n.label}</a>
+              <a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined} class:list={['link-underline py-1 hover:text-action', isActive(n.href) && 'text-action']}>{n.label}</a>
             </li>
           ))
         }
       </ul>
     </nav>
     <div class="flex items-center gap-2">
-      <a href="#book" class="btn-primary hidden !py-2.5 sm:inline-flex">
+      <a href="/book" class="btn-primary hidden !py-2.5 sm:inline-flex">
         <CalendarCheck class="h-4 w-4" /> Book appointment
       </a>
       <button
@@ -40,14 +43,14 @@ import Logo from './Logo.astro';
       {
         nav.map((n) => (
           <li>
-            <a href={n.href} data-menu-link class="block border-b border-line py-3.5 font-display text-[17px] font-semibold text-ink">
+            <a href={n.href} data-menu-link aria-current={isActive(n.href) ? 'page' : undefined} class:list={['block border-b border-line py-3.5 font-display text-[17px] font-semibold', isActive(n.href) ? 'text-action' : 'text-ink']}>
               {n.label}
             </a>
           </li>
         ))
       }
       <li class="py-4">
-        <a href="#book" data-menu-link class="btn-primary w-full">Book appointment</a>
+        <a href="/book" data-menu-link class="btn-primary w-full">Book appointment</a>
       </li>
     </ul>
   </nav>

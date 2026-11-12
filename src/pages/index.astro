@@ -1,48 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
-import ConceptBanner from '../components/ui/ConceptBanner.astro';
-import TopStrip from '../components/ui/TopStrip.astro';
-import Header from '../components/ui/Header.astro';
-import FloatingWhatsApp from '../components/ui/FloatingWhatsApp.astro';
-import MobileActionBar from '../components/ui/MobileActionBar.astro';
 import Hero from '../components/sections/Hero.astro';
 import About from '../components/sections/About.astro';
 import SymptomFinder from '../components/sections/SymptomFinder.astro';
-import Treatments from '../components/sections/Treatments.astro';
-import Doctors from '../components/sections/Doctors.astro';
-import KidsCorner from '../components/sections/KidsCorner.astro';
-import FirstVisit from '../components/sections/FirstVisit.astro';
-import Gallery from '../components/sections/Gallery.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
-import Appointment from '../components/sections/Appointment.astro';
-import FAQ from '../components/sections/FAQ.astro';
-import Contact from '../components/sections/Contact.astro';
-import Footer from '../components/sections/Footer.astro';
 ---
 
-<Layout>
-  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:bg-white focus:px-4 focus:py-2">
-    Skip to content
-  </a>
-  {site.isConcept && <ConceptBanner />}
-  <TopStrip />
-  <Header />
-  <main id="main">
-    <Hero />
-    <About />
-    <SymptomFinder />
-    <Treatments />
-    <Doctors />
-    <KidsCorner />
-    <FirstVisit />
-    <Gallery />
-    {site.showTestimonials && <Testimonials />}
-    <Appointment />
-    <FAQ />
-    <Contact />
-  </main>
-  <Footer />
-  <FloatingWhatsApp />
-  <MobileActionBar />
+<Layout preloadImage="/images/hero-consult.jpg">
+  <Hero />
+  <About />
+  <SymptomFinder />
+  {site.showTestimonials && <Testimonials />}
 </Layout>
