@@ -12,7 +12,7 @@ npm run build     # production build in dist/
 Deploy: push to GitHub and import into Vercel. Vercel detects Astro automatically, and no settings are needed.
 
 ## What's on the page
-Concept banner → top info strip → sticky header → hero with an overlapping facts + live OPD-hours card → about + clinic promise → **"what's bothering you?" symptom finder** → treatment index with detail drawer and "from ₹" prices → two doctors with separate timings → children's block → first visit in 4 steps → clinic gallery with lightbox → (hidden) testimonials → **WhatsApp booking form** with date + time slots from the OPD hours → FAQ → map & contact → footer. On desktop there is a floating WhatsApp button; on mobile there is a bottom Call / WhatsApp / Directions bar.
+Concept banner → top info strip → sticky header → hero with an overlapping facts + live OPD-hours card → about + clinic promise → **"what's bothering you?" symptom finder** → treatment index (Google profile services) with detail drawer, no prices → two doctors with separate timings → children's block → first visit in 4 steps → clinic gallery with lightbox → (hidden) testimonials → **WhatsApp booking form** with date + time slots from the OPD hours → FAQ → map & contact → footer. On desktop there is a floating WhatsApp button; on mobile there is a bottom Call / WhatsApp / Directions bar.
 
 ## 30-minute rebrand for a new dentist (the demo workflow)
 1. Copy this folder, for example `demo-dr-sharma/`.

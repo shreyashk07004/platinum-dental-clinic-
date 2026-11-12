@@ -25,8 +25,8 @@ Sessions per weekday (morning/evening), slot length (30 min), summary rows and t
 ## 3. Doctors — `src/data/doctors.js`
 Names, degrees, **MSDC registration numbers (`A-XXXXX` placeholders)**, bio, interests, per-doctor timings and photos. Delete one entry for a solo practice.
 
-## 4. Treatments & prices — `src/data/treatments.js`
-The `from` prices (₹300 – ₹75,000) are **placeholders based on typical Tier-2 city ranges**. Confirm them with the clinic, or set `from: null` to show "Ask for estimate".
+## 4. Treatments — `src/data/treatments.js`
+One entry per service on the clinic's Google Business Profile. **The client does not want any prices or costs shown anywhere on the site**, so treatments carry no price fields. Don't add them back.
 
 ## 5. Other content
 - `src/data/symptoms.js`: symptom finder text (general guidance)

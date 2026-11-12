@@ -25,7 +25,7 @@ export const site = {
   facts: [
     { title: 'New sterilised kit', text: 'Every patient, opened in front of you' },
     { title: 'Digital RVG X-ray', text: 'Low-dose, shown to you on screen' },
-    { title: 'Written plan & cost', text: 'Before any treatment begins' },
+    { title: 'Written treatment plan', text: 'Before any treatment begins' },
   ],
 
   showTestimonials: false, // switch on only once real patient reviews exist

@@ -17,7 +17,7 @@ export const services = [
     id: 'cosmetic',
     label: 'Cosmetic procedures',
     likely: 'For a smile you’re not happy with: colour, shape, gaps or chips.',
-    advice: 'Whitening, bonding, reshaping, veneers and crowns — we show you what each option looks like and costs, and only suggest what your teeth actually need.',
+    advice: 'Whitening, bonding, reshaping, veneers and crowns — we show you what each option looks like and only suggest what your teeth actually need.',
   },
   {
     id: 'implants',
@@ -61,7 +61,7 @@ export const services = [
     id: 'oral-surgery',
     label: 'Oral surgery',
     likely: 'Wisdom teeth, cysts, implant placement and other minor surgery.',
-    advice: 'Minor oral surgery is done in the clinic under local anaesthesia. We explain each step, the recovery and the cost in writing before the day.',
+    advice: 'Minor oral surgery is done in the clinic under local anaesthesia. We explain each step and the recovery before the day.',
   },
   {
     id: 'paediatrics',

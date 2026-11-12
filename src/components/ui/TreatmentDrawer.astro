@@ -1,11 +1,10 @@
 ---
-import { X, Clock, HeartPulse, IndianRupee } from '@lucide/astro';
+import { X, Clock, HeartPulse } from '@lucide/astro';
 import { waLink, treatmentMessage } from '../../utils/whatsapp';
 import WhatsAppIcon from './WhatsAppIcon.astro';
 
 // One pre-rendered drawer per treatment, shown/hidden by the script in Treatments.astro.
 const { treatment: t } = Astro.props;
-const fmt = (n) => (n ? `from ₹${new Intl.NumberFormat('en-IN').format(n)}` : 'Ask for estimate');
 ---
 
 <div id={`drawer-${t.id}`} data-drawer hidden>
@@ -31,11 +30,6 @@ const fmt = (n) => (n ? `from ₹${new Intl.NumberFormat('en-IN').format(n)}` : 
           <div class="flex gap-3 py-3.5">
             <HeartPulse class="mt-0.5 h-5 w-5 shrink-0 text-clinic" />
             <dt class="sr-only">Recovery</dt><dd>{t.recovery}</dd>
-          </div>
-          <div class="flex gap-3 py-3.5">
-            <IndianRupee class="mt-0.5 h-5 w-5 shrink-0 text-clinic" />
-            <dt class="sr-only">Cost</dt>
-            <dd><span class="font-semibold text-ink">{fmt(t.from)}</span> — exact cost in writing after your check-up.</dd>
           </div>
         </dl>
         <p class="text-[14px] text-slate-soft"><span class="font-semibold text-ink">Usually helps with:</span> {t.fixes}.</p>

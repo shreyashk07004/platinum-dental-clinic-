@@ -5,10 +5,6 @@
 // Home page — general questions about visiting the clinic.
 export const faqs = [
   {
-    q: 'How much will my treatment cost?',
-    a: 'We can only give an exact figure after a check-up, because the same complaint can need very different work. You get a written plan with the cost of each step before anything starts, and nothing is added without asking you.',
-  },
-  {
     q: 'Do I need an appointment, or can I walk in?',
     a: 'Walk-ins are welcome during clinic hours, but booking a time (online or on WhatsApp) means you won’t wait. Emergencies are always seen the same day.',
   },
@@ -18,7 +14,7 @@ export const faqs = [
   },
   {
     q: 'Do you accept UPI and cards?',
-    a: 'Yes — UPI (GPay, PhonePe, Paytm), debit and credit cards, and cash. For longer treatments like implants, payment can be split across stages.',
+    a: 'Yes — UPI (GPay, PhonePe, Paytm), debit and credit cards, and cash.',
   },
   {
     q: 'What if I have a dental emergency?',
@@ -118,7 +114,7 @@ export const treatmentFaqs = [
   },
   {
     q: 'Implant or bridge: which is better for a missing tooth?',
-    a: 'An implant replaces the tooth on its own and doesn’t touch the teeth next to it, so it lasts longest. A bridge is quicker and costs less, but the neighbouring teeth are trimmed to hold it. The doctor will check your bone and gums and tell you which suits you.',
+    a: 'An implant replaces the tooth on its own and doesn’t touch the teeth next to it, so it lasts longest. A bridge is quicker, but the neighbouring teeth are trimmed to hold it. The doctor will check your bone and gums and tell you which suits you.',
   },
   {
     q: 'Does scaling (teeth cleaning) weaken teeth or loosen them?',
