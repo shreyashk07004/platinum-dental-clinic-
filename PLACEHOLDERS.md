@@ -39,3 +39,7 @@ The `from` prices (₹300 – ₹75,000) are **placeholders based on typical Tie
 - JSON-LD `Dentist` schema: name, phone, address, hours
 - `public/og-image.jpg`: WhatsApp link preview image
 - `public/favicon.svg`: tooth outline
+
+## 7. Home page: "Why choose us" and "Before & after"
+- `src/data/whyChooseUs.js`: the six reasons are based on the topics patients mention most in the clinic's Google reviews. Edit the wording here.
+- `src/data/beforeAfter.js`: the three before/after pairs are **sample illustrations** (`public/images/before-after/*.svg`). Replace them with consented patient photos (same framing for both pictures in a pair).

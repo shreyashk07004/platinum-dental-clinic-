@@ -1,0 +1,83 @@
+---
+// "Why choose us": three reasons | simple 3D tooth (three.js, lazy-loaded) | three reasons.
+// Content lives in src/data/whyChooseUs.js.
+import { Feather, ShieldCheck, Monitor, Sparkles, MessageCircle, HeartHandshake } from '@lucide/astro';
+import { reasons } from '../../data/whyChooseUs';
+
+const icons = { Feather, ShieldCheck, Monitor, Sparkles, MessageCircle, HeartHandshake };
+const left = reasons.slice(0, 3);
+const right = reasons.slice(3);
+---
+
+<section id="why-us" aria-labelledby="why-title" class="bg-enamel py-20 md:py-28">
+  <div class="wrap">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <p class="kicker justify-center">Why choose us</p>
+      <h2 id="why-title" class="h-section">Why patients trust us with their smiles</h2>
+      <p class="mx-auto mt-5 max-w-xl text-[17px]">
+        Gentle treatment, a spotless clinic and doctors who take the time to explain. Here is what our patients
+        value most.
+      </p>
+    </div>
+
+    <div class="mt-14 grid items-center gap-10 lg:grid-cols-[1fr_minmax(260px,320px)_1fr] lg:gap-10">
+      {/* 3D tooth: first on mobile, centre column on desktop */}
+      <div class="reveal flex justify-center lg:order-2">
+        <div class="relative aspect-square w-full max-w-[240px] sm:max-w-[280px] lg:max-w-none" data-why-tooth>
+          <svg viewBox="0 0 64 64" class="absolute inset-0 m-auto h-1/2 w-1/2" aria-hidden="true" data-why-fallback>
+            <path
+              d="M20 18c-5 0-8 4-8 10 0 9 4 12 6 20 1 4 3 6 5 6 3 0 3-4 4-9 1-4 2-6 5-6s4 2 5 6c1 5 1 9 4 9 2 0 4-2 5-6 2-8 6-11 6-20 0-6-3-10-8-10-4 0-7 2-12 2s-8-2-12-2z"
+              fill="none"
+              stroke="#1A9BD7"
+              stroke-width="1.6"
+              stroke-linejoin="round"></path>
+          </svg>
+        </div>
+      </div>
+
+      {
+        [left, right].map((col, c) => (
+          <ul class:list={['reveal grid gap-8 sm:grid-cols-2 lg:grid-cols-1 lg:gap-12', c === 0 ? 'lg:order-1' : 'lg:order-3']}>
+            {col.map((r) => {
+              const Icon = icons[r.icon];
+              return (
+                <li class:list={['why-item flex gap-4', c === 0 && 'lg:flex-row-reverse lg:text-right']}>
+                  <Icon class="mt-1 h-7 w-7 shrink-0 text-clinic" stroke-width={1.6} aria-hidden="true" />
+                  <div>
+                    <h3 class="text-[19px] font-bold leading-snug">{r.title}</h3>
+                    <p class="mt-1.5 text-[15.5px] leading-snug">{r.text}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-item h3 { transition: color 150ms ease; }
+  .why-item:hover h3 { color: #0b6fa8; }
+</style>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-why-tooth]');
+  if (el) {
+    const io = new IntersectionObserver(
+      async (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        try {
+          const { mountTooth } = await import('../../scripts/whyTooth.js');
+          if (mountTooth(el)) el.querySelector('[data-why-fallback]')?.remove();
+        } catch {
+          /* keep the line-drawn tooth */
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(el);
+  }
+</script>

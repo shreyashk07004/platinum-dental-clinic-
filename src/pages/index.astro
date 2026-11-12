@@ -4,7 +4,9 @@ import { site } from '../data/site';
 import Hero from '../components/sections/Hero.astro';
 import Doctors from '../components/sections/Doctors.astro';
 import About from '../components/sections/About.astro';
+import WhyChooseUs from '../components/sections/WhyChooseUs.astro';
 import SymptomFinder from '../components/sections/SymptomFinder.astro';
+import BeforeAfter from '../components/sections/BeforeAfter.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
 import FAQ from '../components/sections/FAQ.astro';
 ---
@@ -14,6 +16,8 @@ import FAQ from '../components/sections/FAQ.astro';
   <Doctors />
   <About />
   <SymptomFinder />
+  <WhyChooseUs />
+  <BeforeAfter />
   {site.showTestimonials && <Testimonials />}
   <FAQ />
 </Layout>
