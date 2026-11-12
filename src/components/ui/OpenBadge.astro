@@ -1,0 +1,34 @@
+---
+// Live open/closed status in the clinic's timezone. Computed in the browser
+// (a build-time value would be stale) and refreshed every minute.
+const { tone = 'light', class: className = '' } = Astro.props;
+const text = tone === 'dark' ? 'text-white' : 'text-ink';
+---
+
+<span class:list={['inline-flex items-center gap-2 text-[13px] font-semibold', text, className]} aria-live="polite" data-open-badge>
+  <span class="relative flex h-2.5 w-2.5">
+    <span data-ping class="absolute hidden h-full w-full animate-ping rounded-full bg-mint opacity-60 motion-reduce:hidden"></span>
+    <span data-dot class="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#E0685A]"></span>
+  </span>
+  <span data-label>OPD hours</span>
+</span>
+
+<script>
+  import { openStatus } from '../../utils/hours';
+
+  const update = () => {
+    const status = openStatus();
+    document.querySelectorAll('[data-open-badge]').forEach((badge) => {
+      const ping = badge.querySelector('[data-ping]');
+      const dot = badge.querySelector('[data-dot]');
+      const label = badge.querySelector('[data-label]');
+      ping?.classList.toggle('hidden', !status.open);
+      ping?.classList.toggle('inline-flex', status.open);
+      dot?.classList.toggle('bg-mint', status.open);
+      dot?.classList.toggle('bg-[#E0685A]', !status.open);
+      if (label) label.textContent = status.label;
+    });
+  };
+  update();
+  setInterval(update, 60000);
+</script>

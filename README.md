@@ -1,15 +1,15 @@
 # Smitam Dental Care — dentist concept website (LocalLeap Digital)
 
-A sample dental-clinic website used as a **reusable demo template** for dentist outreach. It is a single page built with React 18, Vite 6, Tailwind 3 and lucide-react. It is fully static and needs no backend: bookings go through WhatsApp.
+A sample dental-clinic website used as a **reusable demo template** for dentist outreach. It is a single page built with Astro 7, Tailwind 3 and @lucide/astro. It ships as static HTML with a few small vanilla-JS scripts for the interactive parts, and needs no backend: bookings go through WhatsApp.
 
 ## Run it
 ```bash
 npm install
 npm run images    # only if public/images is empty — downloads the Unsplash photos
-npm run dev       # http://localhost:5173
+npm run dev       # http://localhost:4321
 npm run build     # production build in dist/
 ```
-Deploy: push to GitHub and import into Vercel. `vercel.json` is included, and no settings are needed.
+Deploy: push to GitHub and import into Vercel. Vercel detects Astro automatically, and no settings are needed.
 
 ## What's on the page
 Concept banner → top info strip → sticky header → hero with an overlapping facts + live OPD-hours card → about + clinic promise → **"what's bothering you?" symptom finder** → treatment index with detail drawer and "from ₹" prices → two doctors with separate timings → children's block → first visit in 4 steps → clinic gallery with lightbox → (hidden) testimonials → **WhatsApp booking form** with date + time slots from the OPD hours → FAQ → map & contact → footer. On desktop there is a floating WhatsApp button; on mobile there is a bottom Call / WhatsApp / Directions bar.
@@ -19,13 +19,15 @@ Concept banner → top info strip → sticky header → hero with an overlapping
 2. Edit `src/data/site.js`: clinic name, short name, area, address, landmark, Google Maps link, established year. **Keep `whatsapp` as LocalLeap's number** so the dentist's test booking reaches you.
 3. Edit `src/data/doctors.js`: doctor name(s), degrees, timings. Delete the second doctor if it's a solo clinic. If you have no photo, use the clinic's Google Maps photo or keep the stock one.
 4. Edit `src/data/hours.js`: copy their hours from Google Maps.
-5. In `index.html`, update the `<title>`, description, OG tags and JSON-LD name/address/phone.
+5. In `src/layouts/Layout.astro`, update the `<title>`, description, OG tags and JSON-LD name/address/phone.
 6. Optional: swap 2–3 gallery photos for photos from their Google Maps listing.
 7. Run `npm run build` and deploy to Vercel as `dr-sharma-demo.vercel.app`. Send the link on WhatsApp.
 
-The hero headline mentions the area ("Rajarampuri, Kolhapur") in `src/components/sections/Hero.jsx`. Change it there too.
+The hero headline mentions the area ("Rajarampuri, Kolhapur") in `src/components/sections/Hero.astro`. Change it there too.
 
 ## Files
+- `src/pages/index.astro`: the page, assembled from `src/components/` (sections + ui, each `.astro` with its own small `<script>` where needed)
+- `src/layouts/Layout.astro`: `<head>` (title, meta, OG, fonts, JSON-LD) and the global scroll-reveal / "book this treatment" script
 - `src/data/`: all content (site, hours, doctors, treatments, symptoms, faqs, gallery)
 - `src/utils/hours.js`: Open/Closed status (Asia/Kolkata) and booking slots
 - `src/utils/whatsapp.js`: wa.me links and the formatted booking message

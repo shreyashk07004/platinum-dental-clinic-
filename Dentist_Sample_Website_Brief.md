@@ -32,7 +32,7 @@
 **A10 Photography.** Real dental clinic interiors, a dentist talking with a patient, X-ray on a screen, instruments, a child's check-up. Cool, neutral tones. No cartoon teeth, no glossy "perfect smile" close-ups as the hero.
 
 ## B. Content & features
-- **Stack:** React 18 + Vite 6 + Tailwind 3 + lucide-react, static, deployed on Vercel.
+- **Stack:** Astro 7 + Tailwind 3 + @lucide/astro, static, deployed on Vercel.
 - **Data files:** `site.js`, `hours.js`, `doctors.js`, `treatments.js` (12, in 3 groups), `symptoms.js` (8), `faqs.js` (8), `gallery.js` (6).
 - **Sections in order:** concept banner → utility strip → sticky header → hero + overlapping facts/hours card → about + clinic promise → symptom finder (blue band) → treatment index + drawer → doctors (2, alternating, own timings) → kids' block → first visit 01–04 (navy) → clinic gallery + lightbox → testimonials (hidden flag) → booking form → FAQ accordion → contact + map → footer with LocalLeap credit.
 - **WhatsApp automations:**

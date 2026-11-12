@@ -6,7 +6,7 @@ Everything a real clinic would change. Content lives in `src/data/*`. No layout 
 
 | Item | Current (fictional) value | Notes |
 |---|---|---|
-| `name` / `shortName` | Smitam Dental Care / Smitam | Also update `<title>`, meta and JSON-LD in `index.html` |
+| `name` / `shortName` | Smitam Dental Care / Smitam | Also update `<title>`, meta and JSON-LD in `src/layouts/Layout.astro` |
 | `marathiWord` | स्मितम् | Optional; used once in About |
 | `established` | 2014 | Shown as the outline numeral |
 | `phoneDisplay` / `phoneRaw` | +91 87660 36310 | LocalLeap's number in demos |
@@ -17,7 +17,7 @@ Everything a real clinic would change. Content lives in `src/data/*`. No layout 
 | `facts` (3) | Sterilised kit · RVG X-ray · Written plan | Change only to things the clinic really does |
 | `agencyUrl` | https://localleapdigital.com | ⚠ Other samples use `localleap.digital` — confirm the final agency domain |
 | `isConcept` | true | Shows the Concept banner. Set false for a live client site |
-| `showTestimonials` | false | Turn on only after adding real reviews in `Testimonials.jsx` |
+| `showTestimonials` | false | Turn on only after adding real reviews in `Testimonials.astro` |
 
 ## 2. Hours — `src/data/hours.js`
 Sessions per weekday (morning/evening), slot length (30 min), summary rows and the emergency note. The booking slots and the Open/Closed badge both read from this file.
@@ -32,9 +32,9 @@ The `from` prices (₹300 – ₹75,000) are **placeholders based on typical Tie
 - `src/data/symptoms.js`: symptom finder text (general guidance)
 - `src/data/faqs.js`: 8 FAQs (the parking answer mentions a lift; check this)
 - `src/data/gallery.js`: 6 clinic photos (replace with the clinic's own)
-- `src/components/sections/About.jsx`: clinic story paragraph and "clinic promise" list (the free 30-day re-check is a placeholder policy)
+- `src/components/sections/About.astro`: clinic story paragraph and "clinic promise" list (the free 30-day re-check is a placeholder policy)
 
-## 6. SEO / deployment — `index.html`, `public/`
+## 6. SEO / deployment — `src/layouts/Layout.astro`, `public/`
 - `<meta name="robots" content="noindex, nofollow">` and `public/robots.txt` (Disallow: /). **Remove both for a live client site.**
 - JSON-LD `Dentist` schema: name, phone, address, hours
 - `public/og-image.jpg`: WhatsApp link preview image

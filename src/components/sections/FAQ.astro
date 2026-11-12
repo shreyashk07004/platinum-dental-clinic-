@@ -1,0 +1,60 @@
+---
+import { Plus, Minus } from '@lucide/astro';
+import { faqs } from '../../data/faqs';
+---
+
+<section id="faq" aria-labelledby="faq-title" class="py-20 md:py-28">
+  <div class="wrap grid gap-10 lg:grid-cols-12">
+    <div class="reveal lg:col-span-4">
+      <p class="kicker">Questions</p>
+      <h2 id="faq-title" class="h-section">What patients usually ask us first.</h2>
+    </div>
+    <ul class="reveal border-t border-ink lg:col-span-8" data-faq>
+      {
+        faqs.map((f, i) => (
+          <li class="border-b border-line">
+            <h3 class="text-[18px]">
+              <button
+                type="button"
+                data-faq-toggle
+                aria-expanded={String(i === 0)}
+                aria-controls={`faq-${i}`}
+                class="flex w-full items-center justify-between gap-6 py-5 text-left font-display font-bold text-ink hover:text-action"
+              >
+                {f.q}
+                <span data-icon-minus class:list={['shrink-0', i === 0 ? 'block' : 'hidden']}><Minus class="h-5 w-5 text-clinic" /></span>
+                <span data-icon-plus class:list={['shrink-0', i === 0 ? 'hidden' : 'block']}><Plus class="h-5 w-5 text-clinic" /></span>
+              </button>
+            </h3>
+            <div id={`faq-${i}`} hidden={i !== 0} class="max-w-2xl pb-6 text-[16px]">{f.a}</div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  // Accordion: one answer open at a time (the first is open on load).
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-faq] [data-faq-toggle]');
+
+  const setOpen = (btn: HTMLButtonElement, open: boolean) => {
+    btn.setAttribute('aria-expanded', String(open));
+    const panel = document.getElementById(btn.getAttribute('aria-controls') || '');
+    if (panel) panel.hidden = !open;
+    const minus = btn.querySelector('[data-icon-minus]');
+    const plus = btn.querySelector('[data-icon-plus]');
+    minus?.classList.toggle('hidden', !open);
+    minus?.classList.toggle('block', open);
+    plus?.classList.toggle('hidden', open);
+    plus?.classList.toggle('block', !open);
+  };
+
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const wasOpen = btn.getAttribute('aria-expanded') === 'true';
+      buttons.forEach((b) => setOpen(b, false));
+      if (!wasOpen) setOpen(btn, true);
+    })
+  );
+</script>

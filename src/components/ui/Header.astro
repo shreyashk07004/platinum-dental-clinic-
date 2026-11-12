@@ -1,0 +1,79 @@
+---
+import { Menu, X, CalendarCheck } from '@lucide/astro';
+import { nav } from '../../data/site';
+import Logo from './Logo.astro';
+---
+
+<header id="top" class="sticky top-0 z-40 bg-white transition-shadow">
+  <div class="wrap flex h-[72px] items-center justify-between">
+    <Logo />
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-7 font-display text-[15px] font-semibold text-ink">
+        {
+          nav.map((n) => (
+            <li>
+              <a href={n.href} class="link-underline py-1 hover:text-action">{n.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href="#book" class="btn-primary hidden !py-2.5 sm:inline-flex">
+        <CalendarCheck class="h-4 w-4" /> Book appointment
+      </a>
+      <button
+        type="button"
+        class="rounded p-2 text-ink lg:hidden"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Menu"
+      >
+        <span data-icon-open class="block"><Menu class="h-6 w-6" /></span>
+        <span data-icon-close class="hidden"><X class="h-6 w-6" /></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-nav" aria-label="Mobile" class="border-t border-line bg-white lg:hidden" hidden>
+    <ul class="wrap py-2">
+      {
+        nav.map((n) => (
+          <li>
+            <a href={n.href} data-menu-link class="block border-b border-line py-3.5 font-display text-[17px] font-semibold text-ink">
+              {n.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="py-4">
+        <a href="#book" data-menu-link class="btn-primary w-full">Book appointment</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const header = document.getElementById('top');
+  const onScroll = () => header?.classList.toggle('shadow-[0_1px_0_#DCE5EE]', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const mobileNav = document.getElementById('mobile-nav');
+  const iconOpen = toggle?.querySelector('[data-icon-open]');
+  const iconClose = toggle?.querySelector('[data-icon-close]');
+
+  const setOpen = (open: boolean) => {
+    if (!toggle || !mobileNav) return;
+    mobileNav.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    iconOpen?.classList.toggle('hidden', open);
+    iconOpen?.classList.toggle('block', !open);
+    iconClose?.classList.toggle('hidden', !open);
+    iconClose?.classList.toggle('block', open);
+  };
+
+  toggle?.addEventListener('click', () => setOpen(mobileNav?.hidden ?? false));
+  document.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+</script>

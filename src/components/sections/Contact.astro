@@ -1,0 +1,59 @@
+---
+import { MapPin, Phone, Mail, Car, Navigation } from '@lucide/astro';
+import { site } from '../../data/site';
+import { clinicHours } from '../../data/hours';
+import OpenBadge from '../ui/OpenBadge.astro';
+
+const row = 'flex gap-3.5 border-b border-line py-4';
+---
+
+<section id="contact" aria-labelledby="contact-title" class="bg-enamel">
+  <div class="grid lg:grid-cols-2">
+    <div class="wrap py-20 md:py-24 lg:ml-auto lg:mr-0 lg:max-w-[600px] lg:pr-14">
+      <p class="kicker">Find us</p>
+      <h2 id="contact-title" class="h-section">First floor, Shree Complex, Rajarampuri.</h2>
+      <OpenBadge class="mt-5" />
+      <ul class="mt-8 border-t border-line text-[15.5px]">
+        <li class={row}>
+          <MapPin class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
+          <span>{site.addressLines.join(', ')}<br /><span class="text-slate-soft">{site.landmark}</span></span>
+        </li>
+        <li class={row}>
+          <Phone class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
+          <a href={`tel:${site.phoneRaw}`} class="font-semibold text-ink hover:text-action">{site.phoneDisplay}</a>
+        </li>
+        <li class={row}>
+          <Mail class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
+          <a href={`mailto:${site.email}`} class="hover:text-action">{site.email}</a>
+        </li>
+        <li class={row}>
+          <Car class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
+          <span>{site.parking}</span>
+        </li>
+      </ul>
+      <dl class="mt-6 space-y-1 text-[15px]">
+        {
+          clinicHours.summary.map((r) => (
+            <div class="flex justify-between gap-4">
+              <dt>
+                {r.days} <span class="text-slate-soft">· {r.note}</span>
+              </dt>
+              <dd class="whitespace-nowrap font-semibold tabular-nums text-ink">{r.time}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <a href={site.mapsLink} target="_blank" rel="noopener noreferrer" class="btn-primary mt-8">
+        <Navigation class="h-4 w-4" /> Get directions
+      </a>
+    </div>
+    <div class="min-h-[360px] lg:min-h-full">
+      <iframe
+        title="Map showing the clinic location in Rajarampuri, Kolhapur"
+        src={site.mapEmbed}
+        class="h-full min-h-[360px] w-full border-0 grayscale-[30%]"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>

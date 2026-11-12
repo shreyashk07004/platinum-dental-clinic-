@@ -1,0 +1,78 @@
+---
+import { X, ChevronLeft, ChevronRight } from '@lucide/astro';
+
+// Single lightbox for the gallery. Opened by any [data-lightbox-index] button.
+const { items } = Astro.props;
+const navBtn = 'absolute top-1/2 -translate-y-1/2 rounded bg-white/10 p-2.5 text-white hover:bg-white/20';
+---
+
+<div id="lightbox" hidden data-items={JSON.stringify(items.map(({ src, alt, caption }) => ({ src, alt, caption })))}>
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-ink-deep/95 p-4" role="dialog" aria-modal="true" aria-label="Clinic photo">
+    <button type="button" data-lb-close class="absolute right-4 top-4 rounded p-2 text-white hover:bg-white/10" aria-label="Close photo">
+      <X class="h-7 w-7" />
+    </button>
+    <button type="button" data-lb-prev class={`${navBtn} left-3`} aria-label="Previous photo">
+      <ChevronLeft class="h-6 w-6" />
+    </button>
+    <figure class="max-w-5xl">
+      <img data-lb-img src="" alt="" class="max-h-[78vh] w-auto rounded-md object-contain" />
+      <figcaption class="mt-3 text-center text-[14px] text-white/80">
+        <span data-lb-caption></span> <span class="text-white/45">· <span data-lb-count></span></span>
+      </figcaption>
+    </figure>
+    <button type="button" data-lb-next class={`${navBtn} right-3`} aria-label="Next photo">
+      <ChevronRight class="h-6 w-6" />
+    </button>
+  </div>
+</div>
+
+<script>
+  const box = document.getElementById('lightbox');
+  if (box) {
+    const items: { src: string; alt: string; caption: string }[] = JSON.parse(box.dataset.items || '[]');
+    const img = box.querySelector<HTMLImageElement>('[data-lb-img]')!;
+    const caption = box.querySelector('[data-lb-caption]')!;
+    const count = box.querySelector('[data-lb-count]')!;
+    const closeBtn = box.querySelector<HTMLButtonElement>('[data-lb-close]')!;
+    let index: number | null = null;
+
+    const render = () => {
+      if (index === null) return;
+      const item = items[index];
+      img.src = item.src;
+      img.alt = item.alt;
+      caption.textContent = item.caption;
+      count.textContent = `${index + 1} / ${items.length}`;
+    };
+    const open = (i: number) => {
+      index = i;
+      render();
+      box.hidden = false;
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    };
+    const close = () => {
+      index = null;
+      box.hidden = true;
+      document.body.style.overflow = '';
+    };
+    const step = (d: number) => {
+      if (index === null) return;
+      index = (index + d + items.length) % items.length;
+      render();
+    };
+
+    document.querySelectorAll<HTMLElement>('[data-lightbox-index]').forEach((btn) =>
+      btn.addEventListener('click', () => open(Number(btn.dataset.lightboxIndex)))
+    );
+    closeBtn.addEventListener('click', close);
+    box.querySelector('[data-lb-prev]')?.addEventListener('click', () => step(-1));
+    box.querySelector('[data-lb-next]')?.addEventListener('click', () => step(1));
+    document.addEventListener('keydown', (e) => {
+      if (index === null) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowRight') step(1);
+      if (e.key === 'ArrowLeft') step(-1);
+    });
+  }
+</script>

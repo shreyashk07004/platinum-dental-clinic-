@@ -1,0 +1,33 @@
+---
+import { site } from '../../data/site';
+
+// Hidden by default (site.showTestimonials = false).
+// Add ONLY real reviews, copied with permission from the clinic's Google profile.
+const reviews = [
+  // { quote: '…', name: 'First name, area', treatment: 'Root canal' },
+];
+---
+
+{
+  reviews.length > 0 && (
+    <section aria-labelledby="reviews-title" class="bg-enamel py-20 md:py-28">
+      <div class="wrap">
+        <p class="kicker">Patients</p>
+        <h2 id="reviews-title" class="h-section">In their words</h2>
+        <ul class="mt-12 grid gap-10 md:grid-cols-3">
+          {reviews.map((r) => (
+            <li class="border-t-2 border-clinic pt-5">
+              <blockquote class="text-[17px] text-ink">“{r.quote}”</blockquote>
+              <p class="mt-4 text-[14px] text-slate-soft">
+                {r.name} · {r.treatment}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <a href={site.googleReviewsLink} target="_blank" rel="noopener noreferrer" class="btn-outline mt-10">
+          Read all reviews on Google
+        </a>
+      </div>
+    </section>
+  )
+}

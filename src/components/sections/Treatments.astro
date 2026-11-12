@@ -1,0 +1,89 @@
+---
+import { Plus } from '@lucide/astro';
+import { treatments, treatmentGroups } from '../../data/treatments';
+import TreatmentDrawer from '../ui/TreatmentDrawer.astro';
+
+const formatFrom = (n) => (n ? `from ₹${new Intl.NumberFormat('en-IN').format(n)}` : 'Ask for estimate');
+---
+
+<section id="treatments" aria-labelledby="treatments-title" class="py-20 md:py-28">
+  <div class="wrap">
+    <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-7">
+        <p class="kicker">Treatments</p>
+        <h2 id="treatments-title" class="h-section">What we do, how long it takes, and where the cost starts.</h2>
+      </div>
+      <p class="text-[15.5px] text-slate-soft lg:col-span-4 lg:col-start-9">
+        Final cost depends on your teeth — you’ll get it in writing after the check-up. Tap any treatment for details.
+      </p>
+    </div>
+
+    <div class="mt-14 space-y-14">
+      {
+        treatmentGroups.map((g, gi) => (
+          <div class="reveal grid gap-4 lg:grid-cols-12">
+            <div class="lg:col-span-3">
+              <p class="font-display text-[13px] font-bold text-clinic-dark">0{gi + 1}</p>
+              <h3 class="mt-1 text-[1.35rem] font-bold">{g.label}</h3>
+            </div>
+            <ul class="border-t border-ink lg:col-span-9">
+              {treatments
+                .filter((t) => t.group === g.id)
+                .map((t) => (
+                  <li class="border-b border-line">
+                    <button
+                      type="button"
+                      data-drawer-open={t.id}
+                      class="group grid w-full gap-1 py-5 text-left sm:grid-cols-12 sm:items-baseline sm:gap-4"
+                      aria-haspopup="dialog"
+                    >
+                      <span class="font-display text-[18px] font-bold text-ink group-hover:text-action sm:col-span-4">{t.name}</span>
+                      <span class="text-[15px] text-slate sm:col-span-5">{t.fixes}</span>
+                      <span class="flex items-center justify-between gap-3 text-[14px] sm:col-span-3 sm:justify-end">
+                        <span class="font-semibold tabular-nums text-ink">{formatFrom(t.from)}</span>
+                        <Plus class="h-4 w-4 text-clinic transition-transform group-hover:rotate-90" />
+                      </span>
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  {treatments.map((t) => <TreatmentDrawer treatment={t} />)}
+</section>
+
+<script>
+  let current: HTMLElement | null = null;
+  let returnFocus: HTMLElement | null = null;
+
+  const close = () => {
+    if (!current) return;
+    current.hidden = true;
+    current = null;
+    document.body.style.overflow = '';
+    // preventScroll so a "Book" click can scroll down to the form uninterrupted
+    returnFocus?.focus({ preventScroll: true });
+  };
+
+  const open = (id: string, trigger: HTMLElement) => {
+    const drawer = document.getElementById(`drawer-${id}`);
+    if (!drawer) return;
+    returnFocus = trigger;
+    current = drawer;
+    drawer.hidden = false;
+    document.body.style.overflow = 'hidden';
+    drawer.querySelector<HTMLElement>('[data-autofocus]')?.focus();
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-drawer-open]').forEach((btn) =>
+    btn.addEventListener('click', () => open(btn.dataset.drawerOpen || '', btn))
+  );
+  document.querySelectorAll('[data-drawer-close]').forEach((btn) => btn.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+</script>

@@ -1,0 +1,20 @@
+---
+import { MapPin, Clock, Phone } from '@lucide/astro';
+import { site } from '../../data/site';
+---
+
+<div class="hidden border-b border-line bg-enamel text-[13px] text-slate md:block">
+  <div class="wrap flex items-center justify-between py-2">
+    <div class="flex items-center gap-6">
+      <a href={site.mapsLink} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 hover:text-ink">
+        <MapPin class="h-3.5 w-3.5 text-clinic-dark" /> {site.addressLines.join(', ')}
+      </a>
+      <span class="hidden items-center gap-1.5 lg:flex">
+        <Clock class="h-3.5 w-3.5 text-clinic-dark" /> Mon–Sat 10–1:30 &amp; 5–8:30 · Sun 10–1
+      </span>
+    </div>
+    <a href={`tel:${site.phoneRaw}`} class="flex items-center gap-1.5 font-semibold text-ink hover:text-action">
+      <Phone class="h-3.5 w-3.5 text-clinic-dark" /> {site.phoneDisplay}
+    </a>
+  </div>
+</div>

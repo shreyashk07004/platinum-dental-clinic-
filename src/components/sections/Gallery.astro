@@ -1,0 +1,45 @@
+---
+import { gallery } from '../../data/gallery';
+import Lightbox from '../ui/Lightbox.astro';
+---
+
+<section id="clinic" aria-labelledby="clinic-title" class="py-20 md:py-28">
+  <div class="wrap">
+    <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-7">
+        <p class="kicker">Inside the clinic</p>
+        <h2 id="clinic-title" class="h-section">Two treatment rooms, daylight, and equipment you can see being cleaned.</h2>
+      </div>
+      <p class="text-[15.5px] text-slate-soft lg:col-span-4 lg:col-start-9">
+        Instruments go through a Class B autoclave after every patient, and each pouch is opened at the chair.
+      </p>
+    </div>
+
+    <ul class="reveal mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+      {
+        gallery.map((g, i) => (
+          <li class={g.span === 'wide' ? 'col-span-2' : ''}>
+            <button
+              type="button"
+              data-lightbox-index={i}
+              class="group block w-full overflow-hidden rounded-md text-left"
+              aria-label={`Open photo: ${g.caption}`}
+            >
+              <img
+                src={g.src}
+                alt={g.alt}
+                class:list={[
+                  'w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]',
+                  g.span === 'wide' ? 'aspect-[16/9] md:aspect-[2/1]' : 'aspect-square',
+                ]}
+                loading="lazy"
+              />
+            </button>
+            <p class="mt-2 text-[13px] text-slate-soft">{g.caption}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <Lightbox items={gallery} />
+</section>
