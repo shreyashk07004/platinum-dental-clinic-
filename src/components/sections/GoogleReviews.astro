@@ -1,0 +1,160 @@
+---
+// "Google reviews": the clinic's Google rating and reviews in a sliding row.
+// Data: src/utils/googleReviews.js (Google Places API at build time, or the
+// saved reviews in src/data/reviews.js when no API key is set).
+import { Star, ChevronLeft, ChevronRight, ArrowUpRight, PenLine } from '@lucide/astro';
+import { getGoogleReviews } from '../../utils/googleReviews';
+
+const g = await getGoogleReviews();
+const writeLink = g.placeId ? `https://search.google.com/local/writereview?placeid=${g.placeId}` : g.link;
+const avatarColors = ['#5E97F6', '#F06292', '#26A69A', '#FFA726', '#9575CD', '#EF5350', '#66BB6A'];
+const full = Math.round(g.rating);
+---
+
+<section id="google-reviews" aria-labelledby="gr-title" class="py-20 md:py-28">
+  <div class="wrap">
+    <div class="grid gap-8 md:grid-cols-12 md:items-end">
+      <div class="reveal md:col-span-7">
+        <p class="kicker">Google reviews</p>
+        <h2 id="gr-title" class="h-section">What patients say about us on Google</h2>
+      </div>
+
+      <div class="reveal flex items-center gap-5 md:col-span-5 md:justify-end">
+        <div class="text-right">
+          <p class="font-display text-[44px] font-bold leading-none text-ink">{g.rating.toFixed(1)}</p>
+        </div>
+        <div>
+          <span class="flex text-[#F7B500]" aria-label={`${g.rating.toFixed(1)} out of 5 stars`}>
+            {Array.from({ length: 5 }).map((_, i) => <Star class={`h-5 w-5 ${i < full ? 'fill-current' : ''}`} />)}
+          </span>
+          <p class="mt-1 text-[15px]">Based on <strong class="text-ink">{g.count} reviews</strong></p>
+          <p class="mt-1 flex items-center gap-1.5 text-[13px] text-slate-soft">
+            <svg viewBox="0 0 48 48" class="h-3.5 w-3.5" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.2 0 24 0 14.6 0 6.6 5.4 2.6 13.3l7.9 6.1C12.4 13.7 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C.9 16.6 0 20.2 0 24s.9 7.4 2.6 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.8-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.6-4.2-13.5-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>
+            Reviews from Google
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative mt-12" data-gr>
+      <ul class="gr-track flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2" data-gr-track>
+        {
+          g.reviews.map((r, i) => (
+            <li class="w-[85%] shrink-0 snap-start sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]">
+              <article class="flex h-full flex-col rounded-md border border-line bg-white p-6">
+                <div class="flex items-center justify-between">
+                  <span class="flex text-[#F7B500]" aria-label={`${r.rating} out of 5 stars`}>
+                    {Array.from({ length: 5 }).map((_, s) => <Star class={`h-4 w-4 ${s < r.rating ? 'fill-current' : ''}`} />)}
+                  </span>
+                  {r.when && <span class="text-[13px] text-slate-soft">{r.when}</span>}
+                </div>
+
+                <blockquote class="gr-text mt-4 flex-1 text-[15.5px] leading-relaxed text-slate">“{r.text}”</blockquote>
+
+                <footer class="mt-6 flex items-center gap-3 border-t border-line pt-5">
+                  <span
+                    class="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full font-display text-[17px] font-semibold text-white"
+                    style={`background:${avatarColors[i % avatarColors.length]}`}
+                    aria-hidden="true"
+                  >
+                    {r.photo ? (
+                      <img src={r.photo} alt="" width="44" height="44" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover" />
+                    ) : (
+                      r.name.charAt(0).toUpperCase()
+                    )}
+                  </span>
+                  <span class="min-w-0">
+                    {r.profile ? (
+                      <a href={r.profile} target="_blank" rel="noopener noreferrer" class="block truncate font-display text-[16px] font-bold text-ink hover:underline">
+                        {r.name}
+                      </a>
+                    ) : (
+                      <span class="block truncate font-display text-[16px] font-bold text-ink">{r.name}</span>
+                    )}
+                    <span class="block text-[13px] text-slate-soft">Google review</span>
+                  </span>
+                </footer>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button type="button" class="gr-arrow left-0 -translate-x-1/2" aria-label="Previous reviews" data-gr-prev>
+        <ChevronLeft class="h-5 w-5" />
+      </button>
+      <button type="button" class="gr-arrow right-0 translate-x-1/2" aria-label="Next reviews" data-gr-next>
+        <ChevronRight class="h-5 w-5" />
+      </button>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+      <a href={g.link} target="_blank" rel="noopener noreferrer" class="btn-primary">
+        See all reviews on Google <ArrowUpRight class="h-4 w-4" />
+      </a>
+      <a href={writeLink} target="_blank" rel="noopener noreferrer" class="btn-outline">
+        <PenLine class="h-4 w-4" /> Write a review
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gr-track { scrollbar-width: none; }
+  .gr-track::-webkit-scrollbar { display: none; }
+  .gr-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .gr-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    display: none;
+    height: 2.75rem;
+    width: 2.75rem;
+    place-items: center;
+    border-radius: 9999px;
+    border: 1px solid #dce5ee;
+    background: #fff;
+    color: #13294b;
+    box-shadow: 0 4px 14px rgba(13, 30, 56, 0.15);
+    transition: background-color 150ms, color 150ms;
+    --tw-translate-y: -50%;
+  }
+  .gr-arrow:hover { background: #13294b; color: #fff; }
+  @media (min-width: 768px) { .gr-arrow { display: grid; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gr]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-gr-track]');
+    if (!track) return;
+    const step = () => ((track.firstElementChild as HTMLElement | null)?.offsetWidth ?? track.clientWidth) + 20;
+    const atEnd = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+
+    // Next wraps round to the first review; previous wraps to the last.
+    const next = () => (atEnd() ? track.scrollTo({ left: 0 }) : track.scrollBy({ left: step() }));
+    const prev = () => (track.scrollLeft < 4 ? track.scrollTo({ left: track.scrollWidth }) : track.scrollBy({ left: -step() }));
+    root.querySelector('[data-gr-next]')?.addEventListener('click', next);
+    root.querySelector('[data-gr-prev]')?.addEventListener('click', prev);
+
+    // Slide on its own every 5 s while on screen; pause on hover, focus or touch.
+    let paused = false;
+    let visible = false;
+    root.addEventListener('mouseenter', () => (paused = true));
+    root.addEventListener('mouseleave', () => (paused = false));
+    root.addEventListener('focusin', () => (paused = true));
+    root.addEventListener('focusout', () => (paused = false));
+    track.addEventListener('touchstart', () => (paused = true), { passive: true });
+    new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.4 }).observe(root);
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.setInterval(() => {
+        if (!paused && visible && !document.hidden) next();
+      }, 5000);
+    }
+  });
+</script>

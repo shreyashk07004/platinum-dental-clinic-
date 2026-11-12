@@ -10,7 +10,7 @@ const item = 'flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 fo
 <div class="h-[62px] md:hidden" aria-hidden="true"></div>
 <nav
   aria-label="Quick actions"
-  class="fixed inset-x-0 bottom-0 z-40 flex border-t border-line bg-white md:hidden"
+  class="mab fixed inset-x-0 bottom-0 z-40 flex border-t border-line bg-white md:hidden"
   style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
 >
   <a href={`tel:${site.phoneRaw}`} class={`${item} text-ink`}><Phone class="h-5 w-5" />Call</a>
@@ -19,3 +19,20 @@ const item = 'flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 fo
   </a>
   <a href={site.mapsLink} target="_blank" rel="noopener noreferrer" class={`${item} text-ink`}><Navigation class="h-5 w-5" />Directions</a>
 </nav>
+
+<style>
+  /* Hidden at the top of the page; slides up once the visitor scrolls (html.is-scrolled, set in Layout.astro) */
+  .mab {
+    transform: translateY(100%);
+    visibility: hidden;
+    transition: transform 400ms ease, visibility 0s linear 400ms;
+  }
+  :global(html.is-scrolled) .mab {
+    transform: none;
+    visibility: visible;
+    transition: transform 400ms ease, visibility 0s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mab, :global(html.is-scrolled) .mab { transition: none; }
+  }
+</style>

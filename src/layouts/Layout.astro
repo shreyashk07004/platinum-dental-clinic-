@@ -72,6 +72,17 @@ const jsonLd = {
     <FloatingWhatsApp />
     <MobileActionBar />
 
+    <script is:inline>
+      // Bottom bars (reviews bar, mobile Call/WhatsApp/Directions) show only
+      // after the visitor scrolls a little, and hide again back at the top.
+      (function () {
+        var root = document.documentElement;
+        var update = function () { root.classList.toggle('is-scrolled', window.scrollY > 160); };
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+      })();
+    </script>
+
     <script>
       // Scroll reveal
       const els = document.querySelectorAll('.reveal');

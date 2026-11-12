@@ -1,10 +1,15 @@
 ---
 // Bar fixed to the bottom of the window (all pages):
 //   Google · rating ★★★★★ · N Reviews · See All Reviews ›   [reviewer circles]   one review, sliding left to the next
-// Visitors can close it with × (it comes back on the next page load). On phones it sits
-// above the Call / WhatsApp / Directions bar. Reviews: src/data/reviews.js.
+// Hidden at the top of the page; slides up once the visitor scrolls down
+// (html.is-scrolled, set in Layout.astro). Visitors can close it with ×
+// (it comes back on the next page load). On phones it sits above the
+// Call / WhatsApp / Directions bar. Reviews: src/utils/googleReviews.js.
 import { Star, ChevronRight, X } from '@lucide/astro';
-import { google, reviews } from '../../data/reviews';
+import { getGoogleReviews } from '../../utils/googleReviews';
+
+const google = await getGoogleReviews();
+const reviews = google.reviews;
 
 // Reviewer circles: their Google profile pictures (initials as a fallback).
 const avatarColors = ['#5E97F6', '#F06292', '#26A69A', '#FFA726', '#9575CD', '#EF5350', '#66BB6A'];
@@ -95,8 +100,18 @@ const stars = Array.from({ length: 5 });
 </aside>
 
 <style>
-  .rb { animation: rb-in 500ms ease 600ms both; box-shadow: 0 -4px 18px rgba(13, 30, 56, 0.18); }
-  @keyframes rb-in { from { transform: translateY(100%); } to { transform: none; } }
+  /* Hidden at the top of the page, slides up once the visitor scrolls */
+  .rb {
+    box-shadow: 0 -4px 18px rgba(13, 30, 56, 0.18);
+    transform: translateY(calc(100% + 62px + env(safe-area-inset-bottom)));
+    visibility: hidden;
+    transition: transform 400ms ease, visibility 0s linear 400ms;
+  }
+  :global(html.is-scrolled) .rb {
+    transform: none;
+    visibility: visible;
+    transition: transform 400ms ease, visibility 0s;
+  }
 
   .rb-wordmark {
     font-family: 'Product Sans', 'Google Sans', Urbanist, system-ui, sans-serif;
@@ -117,7 +132,7 @@ const stars = Array.from({ length: 5 });
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .rb { animation: none; }
+    .rb, :global(html.is-scrolled) .rb { transition: none; }
     .rb-track { transition: none; }
   }
 
@@ -126,8 +141,9 @@ const stars = Array.from({ length: 5 });
   :global(html.rb-closed) .rb-spacer { display: none; }
 
   /* Lift the desktop WhatsApp button above the bar while it's showing */
+  :global([data-float-wa]) { transition: bottom 400ms ease, transform 150ms ease; }
   @media (min-width: 768px) {
-    :global(html:not(.rb-closed) [data-float-wa]) { bottom: 104px; }
+    :global(html.is-scrolled:not(.rb-closed) [data-float-wa]) { bottom: 104px; }
   }
 </style>
 
