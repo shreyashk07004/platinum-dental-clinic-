@@ -4,6 +4,7 @@ import { site } from '../data/site';
 import Header from '../components/ui/Header.astro';
 import FloatingWhatsApp from '../components/ui/FloatingWhatsApp.astro';
 import MobileActionBar from '../components/ui/MobileActionBar.astro';
+import ReviewsBar from '../components/ui/ReviewsBar.astro';
 import Footer from '../components/sections/Footer.astro';
 
 const {
@@ -67,6 +68,7 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
+    <ReviewsBar />
     <FloatingWhatsApp />
     <MobileActionBar />
 

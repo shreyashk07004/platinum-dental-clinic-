@@ -19,7 +19,7 @@ export const site = {
   parking: 'Two-wheeler parking in front; cars on the 4th Lane side road.', // TODO: confirm with clinic
   mapsLink: 'https://www.google.com/maps/search/?api=1&query=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur',
   mapEmbed: 'https://www.google.com/maps?q=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur&output=embed',
-  googleReviewsLink: 'https://www.google.com/maps/search/?api=1&query=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur',
+  googleReviewsLink: 'https://www.google.com/maps?cid=14307867245017570191', // the clinic's own Google listing
 
   // Real facts shown in the hero strip (no counters, no invented numbers).
   facts: [

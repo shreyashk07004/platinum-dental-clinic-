@@ -1,0 +1,124 @@
+---
+// "Patient reviews": video testimonials in a swipeable row, plus the clinic's
+// Google rating. Videos live in src/data/reviews.js (currently demo samples).
+// A video only loads when its card is pressed, so the page stays light.
+import { Play, ChevronLeft, ChevronRight, Star, ArrowUpRight } from '@lucide/astro';
+import { google, videos } from '../../data/reviews';
+---
+
+<section id="patient-reviews" aria-labelledby="vt-title" class="bg-enamel py-20 md:py-28">
+  <div class="wrap">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <p class="kicker justify-center">Patient reviews</p>
+      <h2 id="vt-title" class="h-section">Hear it from our patients</h2>
+      <p class="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[17px]">
+        <span class="flex text-[#F5B301]" aria-hidden="true">
+          {Array.from({ length: 5 }).map(() => <Star class="h-[18px] w-[18px] fill-current" />)}
+        </span>
+        <span><strong class="font-display text-[19px] text-ink">{google.rating.toFixed(1)}</strong> / 5 from {google.count} Google reviews</span>
+      </p>
+    </div>
+
+    <div class="relative mt-12" data-vt>
+      <ul class="vt-track flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2" data-vt-track>
+        {
+          videos.map((v) => (
+            <li class="reveal w-[78%] shrink-0 snap-start sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]">
+              <div class="vt-card relative aspect-[4/5] overflow-hidden rounded-md bg-ink-deep" data-vt-card data-src={v.src} data-yt={v.youtubeId}>
+                <button type="button" class="group absolute inset-0 h-full w-full text-left" aria-label={`Play video: ${v.title}`} data-vt-play>
+                  <img src={v.poster} alt="" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" width="600" height="750" />
+                  <span class="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-ink-deep/20 to-transparent" aria-hidden="true" />
+                  <span class="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/95 text-action shadow-[0_6px_24px_rgba(13,30,56,0.35)] transition-transform group-hover:scale-105">
+                    <Play class="ml-1 h-7 w-7 fill-current" />
+                  </span>
+                  {v.isSample && (
+                    <span class="absolute left-3 top-3 rounded bg-white/90 px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-[0.12em] text-ink">
+                      Sample video
+                    </span>
+                  )}
+                  <span class="absolute inset-x-0 bottom-0 p-5 text-white">
+                    <span class="block font-display text-[19px] font-bold">{v.title}</span>
+                    <span class="mt-1 block text-[14.5px] leading-snug text-white/85">{v.caption}</span>
+                  </span>
+                </button>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button type="button" class="vt-arrow left-0 -translate-x-1/2" aria-label="Previous videos" data-vt-prev>
+        <ChevronLeft class="h-5 w-5" />
+      </button>
+      <button type="button" class="vt-arrow right-0 translate-x-1/2" aria-label="Next videos" data-vt-next>
+        <ChevronRight class="h-5 w-5" />
+      </button>
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href={google.link} target="_blank" rel="noopener noreferrer" class="btn-outline">
+        Read all reviews on Google <ArrowUpRight class="h-4 w-4" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .vt-track { scrollbar-width: none; }
+  .vt-track::-webkit-scrollbar { display: none; }
+  .vt-arrow {
+    @apply absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-ink shadow-[0_4px_14px_rgba(13,30,56,0.15)] transition-colors hover:bg-ink hover:text-white md:grid;
+  }
+  .vt-arrow:disabled { opacity: 0; pointer-events: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-vt]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-vt-track]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-vt-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-vt-next]');
+    if (!track) return;
+
+    const step = () => (track.firstElementChild as HTMLElement | null)?.offsetWidth ?? track.clientWidth;
+    const update = () => {
+      if (prev) prev.disabled = track.scrollLeft < 4;
+      if (next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    };
+    prev?.addEventListener('click', () => track.scrollBy({ left: -step() - 20 }));
+    next?.addEventListener('click', () => track.scrollBy({ left: step() + 20 }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+
+    // Only one video plays at a time.
+    const stopOthers = (except: HTMLElement) =>
+      root.querySelectorAll<HTMLVideoElement>('video').forEach((vid) => {
+        if (!except.contains(vid)) vid.pause();
+      });
+
+    root.querySelectorAll<HTMLElement>('[data-vt-card]').forEach((card) => {
+      card.querySelector('[data-vt-play]')?.addEventListener('click', () => {
+        const { src, yt } = card.dataset;
+        stopOthers(card);
+        if (yt) {
+          const frame = document.createElement('iframe');
+          frame.src = `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`;
+          frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+          frame.title = card.querySelector('[data-vt-play]')?.getAttribute('aria-label') ?? 'Patient video';
+          frame.className = 'absolute inset-0 h-full w-full';
+          card.replaceChildren(frame);
+        } else if (src) {
+          const vid = document.createElement('video');
+          vid.src = src;
+          vid.controls = true;
+          vid.playsInline = true;
+          vid.className = 'absolute inset-0 h-full w-full bg-black object-contain';
+          vid.addEventListener('play', () => stopOthers(card));
+          card.replaceChildren(vid);
+          vid.play().catch(() => {});
+        }
+      });
+    });
+  });
+</script>

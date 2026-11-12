@@ -43,3 +43,8 @@ The `from` prices (₹300 – ₹75,000) are **placeholders based on typical Tie
 ## 7. Home page: "Why choose us" and "Before & after"
 - `src/data/whyChooseUs.js`: the six reasons are based on the topics patients mention most in the clinic's Google reviews. Edit the wording here.
 - `src/data/beforeAfter.js`: the three before/after pairs are **sample illustrations** (`public/images/before-after/*.svg`). Replace them with consented patient photos (same framing for both pictures in a pair).
+
+## 8. Patient reviews — `src/data/reviews.js`
+- `google`: rating (5.0) and review count (57) from the clinic's Google Business Profile, checked 12 Nov 2026. Update them now and then.
+- `reviews`: **real** Google reviews (first name + initial). They scroll in the bar fixed to the bottom of every page (`src/components/ui/ReviewsBar.astro`).
+- `videos`: the home page "Patient reviews" video cards are **demo samples** (a CC0 clip and clinic photos as posters, tagged "Sample video"). For each real testimonial, set `src` (a file in `public/videos/`) or `youtubeId`, plus `poster`, `title` and `caption`, and delete `isSample`.

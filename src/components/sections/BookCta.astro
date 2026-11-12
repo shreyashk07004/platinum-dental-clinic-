@@ -1,0 +1,42 @@
+---
+// "Book your appointment today" call-to-action box.
+import { CalendarCheck, Phone } from '@lucide/astro';
+import { site } from '../../data/site';
+import { clinicHours } from '../../data/hours';
+import { waLink, quickMessage } from '../../utils/whatsapp';
+import WhatsAppIcon from '../ui/WhatsAppIcon.astro';
+import ToothArch from '../motifs/ToothArch.astro';
+---
+
+<section aria-labelledby="cta-title" class="py-16 md:py-24">
+  <div class="wrap">
+    <div class="reveal relative overflow-hidden rounded-md bg-ink px-6 py-12 text-center text-white sm:px-10 md:py-16">
+      <ToothArch class="pointer-events-none absolute -bottom-20 left-1/2 w-[620px] -translate-x-1/2 opacity-[0.12]" stroke="#FFFFFF" strokeWidth={1} />
+
+      <div class="relative mx-auto max-w-3xl">
+        <h2 id="cta-title" class="font-display text-[1.9rem] font-bold leading-[1.15] text-white sm:text-[2.5rem]">
+          Book your dental appointment today
+        </h2>
+        <p class="mx-auto mt-5 max-w-2xl text-[16.5px] leading-relaxed text-white/80">
+          Whether it’s a routine check-up, a tooth that’s been bothering you, or a smile you’d like to change,
+          we’ll find you a time that suits you. You get a written plan and cost before any treatment begins,
+          so there are no surprises.
+        </p>
+
+        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a href="/book" class="btn-light w-full sm:w-auto">
+            <CalendarCheck class="h-[18px] w-[18px]" /> Book appointment
+          </a>
+          <a href={waLink(quickMessage())} target="_blank" rel="noopener noreferrer" class="btn w-full bg-[#1B8F4A] text-white hover:bg-[#167A3F] sm:w-auto">
+            <WhatsAppIcon class="h-[18px] w-[18px]" /> WhatsApp us
+          </a>
+          <a href={`tel:${site.phoneRaw}`} class="btn w-full border border-white/30 text-white hover:border-white hover:bg-white hover:text-ink sm:w-auto">
+            <Phone class="h-[18px] w-[18px]" /> {site.phoneDisplay}
+          </a>
+        </div>
+
+        <p class="mt-6 text-[14px] text-white/60">{clinicHours.emergencyNote}</p>
+      </div>
+    </div>
+  </div>
+</section>
