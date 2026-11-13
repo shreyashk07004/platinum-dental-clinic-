@@ -9,22 +9,22 @@ const row = 'flex gap-3.5 border-b border-line py-4';
 
 <section id="contact" aria-labelledby="contact-title" class="bg-enamel">
   <div class="grid lg:grid-cols-2">
-    <div class="wrap py-20 md:py-24 lg:ml-auto lg:mr-0 lg:max-w-[600px] lg:pr-14">
+    <div class="wrap py-14 sm:py-20 md:py-24 lg:ml-auto lg:mr-0 lg:max-w-[600px] lg:pr-14">
       <p class="kicker">Find us</p>
       <h2 id="contact-title" class="h-section">Third floor, Krystal Square, Nagala Park.</h2>
       <OpenBadge class="mt-5" />
-      <ul class="mt-8 border-t border-line text-[15.5px]">
+      <ul class="mt-6 border-t sm:mt-8 border-line text-[15.5px]">
         <li class={row}>
           <MapPin class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
           <span>{site.addressLines.join(', ')}<br /><span class="text-slate-soft">{site.landmark}</span></span>
         </li>
         <li class={row}>
           <Phone class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
-          <a href={`tel:${site.phoneRaw}`} class="font-semibold text-ink hover:text-action">{site.phoneDisplay}</a>
+          <a href={`tel:${site.phoneRaw}`} class="-my-2 py-2 font-semibold text-ink hover:text-action">{site.phoneDisplay}</a>
         </li>
         <li class={row}>
           <Mail class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
-          <a href={`mailto:${site.email}`} class="hover:text-action">{site.email}</a>
+          <a href={`mailto:${site.email}`} class="-my-2 break-all py-2 hover:text-action">{site.email}</a>
         </li>
         <li class={row}>
           <Car class="mt-0.5 h-5 w-5 shrink-0 text-clinic-dark" />
@@ -43,15 +43,15 @@ const row = 'flex gap-3.5 border-b border-line py-4';
           ))
         }
       </dl>
-      <a href={site.mapsLink} target="_blank" rel="noopener noreferrer" class="btn-primary mt-8">
+      <a href={site.mapsLink} target="_blank" rel="noopener noreferrer" class="btn-primary mt-8 w-full sm:w-auto">
         <Navigation class="h-4 w-4" /> Get directions
       </a>
     </div>
-    <div class="min-h-[360px] lg:min-h-full">
+    <div class="h-[300px] sm:h-[380px] lg:h-auto lg:min-h-full">
       <iframe
         title="Map showing the clinic location in Nagala Park, Kolhapur"
         src={site.mapEmbed}
-        class="h-full min-h-[360px] w-full border-0"
+        class="h-full w-full border-0 lg:min-h-[360px]"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>

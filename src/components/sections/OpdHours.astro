@@ -23,7 +23,7 @@ const tidy = (t) => t.replace(/:00 /g, ' ');
   </div>
 
   {/* Timings */}
-  <dl class="grid gap-2 border-line sm:grid-cols-3 sm:gap-6 md:border-l md:pl-8">
+  <dl class="grid gap-2 border-t border-line pt-4 sm:grid-cols-3 sm:gap-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
     {
       clinicHours.summary.map((r) => (
         <div class="flex items-baseline justify-between gap-4 sm:block">
@@ -34,7 +34,7 @@ const tidy = (t) => t.replace(/:00 /g, ' ');
     }
   </dl>
 
-  <a href="/book" class="btn-primary justify-self-start whitespace-nowrap md:justify-self-end">
+  <a href="/book" class="btn-primary w-full whitespace-nowrap sm:w-auto sm:justify-self-start md:justify-self-end">
     Book a slot <ArrowRight class="h-4 w-4" />
   </a>
 </div>
@@ -57,8 +57,10 @@ const tidy = (t) => t.replace(/:00 /g, ' ');
   setInterval(showToday, 60000);
 
   // Lazy-load the 3D clock once the card is near the viewport
+  // Skip the 3D model (three.js, ~120 KB gzipped) when the visitor has Data Saver on
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
   const el = document.querySelector<HTMLElement>('[data-clock]');
-  if (el) {
+  if (el && !saveData) {
     const io = new IntersectionObserver(
       async (entries) => {
         if (!entries.some((e) => e.isIntersecting)) return;

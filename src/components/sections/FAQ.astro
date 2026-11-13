@@ -24,8 +24,8 @@ const faqLd = {
 };
 ---
 
-<section id="faq" aria-labelledby="faq-title" class:list={['py-20 md:py-28', tone === 'enamel' && 'bg-enamel']}>
-  <div class="wrap grid gap-10 lg:grid-cols-12">
+<section id="faq" aria-labelledby="faq-title" class:list={['section-y', tone === 'enamel' && 'bg-enamel']}>
+  <div class="wrap grid gap-8 sm:gap-10 lg:grid-cols-12">
     <div class="reveal lg:col-span-4">
       <p class="kicker">{kicker}</p>
       <h2 id="faq-title" class="h-section">{title}</h2>
@@ -35,20 +35,20 @@ const faqLd = {
       {
         items.map((f, i) => (
           <li class="border-b border-line">
-            <h3 class="text-[18px]">
+            <h3 class="text-[16.5px] sm:text-[18px]">
               <button
                 type="button"
                 data-faq-toggle
                 aria-expanded={String(i === 0)}
                 aria-controls={`faq-${i}`}
-                class="flex w-full items-center justify-between gap-6 py-5 text-left font-display font-bold text-ink hover:text-action"
+                class="flex min-h-[56px] w-full items-center justify-between gap-4 py-4 text-left font-display font-bold leading-snug text-ink hover:text-action sm:gap-6 sm:py-5"
               >
                 {f.q}
                 <span data-icon-minus class:list={['shrink-0', i === 0 ? 'block' : 'hidden']}><Minus class="h-5 w-5 text-clinic" /></span>
                 <span data-icon-plus class:list={['shrink-0', i === 0 ? 'hidden' : 'block']}><Plus class="h-5 w-5 text-clinic" /></span>
               </button>
             </h3>
-            <div id={`faq-${i}`} hidden={i !== 0} class="max-w-2xl pb-6 text-[16px]">{f.a}</div>
+            <div id={`faq-${i}`} hidden={i !== 0} class="max-w-2xl pb-5 text-[15.5px] sm:pb-6 sm:text-[16px]">{f.a}</div>
           </li>
         ))
       }

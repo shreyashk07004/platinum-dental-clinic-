@@ -18,14 +18,14 @@ const faces = reviews.slice(0, 5);
 const stars = Array.from({ length: 5 });
 ---
 
-<div class="rb-spacer h-[60px] md:h-[84px]" aria-hidden="true"></div>
+<div class="rb-spacer h-[52px] md:h-[84px]" aria-hidden="true"></div>
 
 <aside
   id="reviews-bar"
   aria-label="Google reviews"
   class="rb fixed inset-x-0 bottom-[calc(62px+env(safe-area-inset-bottom))] z-30 bg-[#1D3A68] text-white md:bottom-0"
 >
-  <div class="relative mx-auto flex h-[60px] max-w-[1400px] items-center gap-3 pl-3 pr-9 sm:pl-5 md:h-[84px] md:gap-8 md:px-12 lg:px-16">
+  <div class="relative mx-auto flex h-[52px] max-w-[1400px] items-center gap-3 pl-3 pr-11 sm:pl-5 md:h-[84px] md:gap-8 md:px-12 lg:px-16">
     <!-- Summary -->
     <a
       href={google.link}
@@ -35,7 +35,7 @@ const stars = Array.from({ length: 5 });
       aria-label={`Rated ${google.rating.toFixed(1)} out of 5 from ${google.count} Google reviews. See all reviews on Google`}
     >
       <!-- "G" icon on phones, full wordmark from tablet up -->
-      <span class="grid h-8 w-8 place-items-center rounded-full bg-white md:hidden" aria-hidden="true">
+      <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white md:hidden" aria-hidden="true">
         <svg viewBox="0 0 48 48" class="h-[18px] w-[18px]"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.2 0 24 0 14.6 0 6.6 5.4 2.6 13.3l7.9 6.1C12.4 13.7 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C.9 16.6 0 20.2 0 24s.9 7.4 2.6 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.8-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.6-4.2-13.5-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>
       </span>
       <span class="rb-wordmark hidden md:inline" aria-hidden="true">
@@ -80,7 +80,7 @@ const stars = Array.from({ length: 5 });
         {
           [...reviews, reviews[0]].map((r, i) => (
             <li class="flex h-full w-full shrink-0 flex-col justify-center" aria-hidden={i === reviews.length ? 'true' : undefined}>
-              <p class="rb-text text-[12.5px] leading-[1.35] md:text-[15.5px]">{r.text}</p>
+              <p class="rb-text text-[12.5px] leading-[1.3] md:text-[15.5px] md:leading-[1.35]">{r.text}</p>
               <p class="mt-0.5 font-display text-[12.5px] font-bold md:text-[15.5px]">- {r.name}</p>
             </li>
           ))
@@ -90,7 +90,7 @@ const stars = Array.from({ length: 5 });
 
     <button
       type="button"
-      class="absolute right-1.5 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white md:right-3"
+      class="absolute right-0.5 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white md:right-3"
       aria-label="Hide reviews bar"
       data-rb-close
     >
@@ -126,10 +126,12 @@ const stars = Array.from({ length: 5 });
 
   .rb-text {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  @media (min-width: 768px) { .rb-text { -webkit-line-clamp: 2; } }
 
   @media (prefers-reduced-motion: reduce) {
     .rb, :global(html.is-scrolled) .rb { transition: none; }
@@ -172,6 +174,13 @@ const stars = Array.from({ length: 5 });
       if (index === total) go(0, false);
     });
 
+    let startX = 0;
+    viewport.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; paused = true; }, { passive: true });
+    viewport.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) go(dx < 0 ? Math.min(index + 1, total) : Math.max(index - 1, 0));
+      paused = false;
+    }, { passive: true });
     viewport.addEventListener('mouseenter', () => (paused = true));
     viewport.addEventListener('mouseleave', () => (paused = false));
 

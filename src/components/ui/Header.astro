@@ -8,7 +8,7 @@ const isActive = (href) => path === href;
 ---
 
 <header id="top" class="sticky top-0 z-40 bg-white transition-shadow">
-  <div class="wrap flex h-[72px] items-center justify-between">
+  <div class="wrap flex h-16 items-center justify-between md:h-[72px]">
     <Logo />
     <nav aria-label="Main" class="hidden lg:block">
       <ul class="flex items-center gap-7 font-display text-[15px] font-semibold text-ink">
@@ -22,12 +22,12 @@ const isActive = (href) => path === href;
       </ul>
     </nav>
     <div class="flex items-center gap-2">
-      <a href="/book" class="btn-primary hidden !py-2.5 sm:inline-flex">
-        <CalendarCheck class="h-4 w-4" /> Book appointment
+      <a href="/book" class="btn-primary !min-h-[40px] !px-3.5 !py-2 text-[14px] sm:!min-h-[46px] sm:!px-5 sm:!py-2.5 sm:text-[15px]">
+        <CalendarCheck class="h-4 w-4" /> Book<span class="hidden sm:inline"> appointment</span>
       </a>
       <button
         type="button"
-        class="rounded p-2 text-ink lg:hidden"
+        class="-mr-2 grid h-11 w-11 place-items-center rounded text-ink lg:hidden"
         data-menu-toggle
         aria-expanded="false"
         aria-controls="mobile-nav"
@@ -38,7 +38,7 @@ const isActive = (href) => path === href;
       </button>
     </div>
   </div>
-  <nav id="mobile-nav" aria-label="Mobile" class="border-t border-line bg-white lg:hidden" hidden>
+  <nav id="mobile-nav" aria-label="Mobile" class="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-line bg-white shadow-[0_12px_24px_-12px_rgba(13,30,56,0.25)] lg:hidden" hidden>
     <ul class="wrap py-2">
       {
         nav.map((n) => (
@@ -78,5 +78,10 @@ const isActive = (href) => path === href;
   };
 
   toggle?.addEventListener('click', () => setOpen(mobileNav?.hidden ?? false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileNav && !mobileNav.hidden) { setOpen(false); toggle?.focus(); }
+  });
+  // Close the menu if the screen grows to desktop width (e.g. phone rotated / tablet)
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (m) => m.matches && setOpen(false));
   document.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
 </script>

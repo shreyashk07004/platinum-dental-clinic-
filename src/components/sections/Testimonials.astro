@@ -10,11 +10,11 @@ const reviews = [
 
 {
   reviews.length > 0 && (
-    <section aria-labelledby="reviews-title" class="bg-enamel py-20 md:py-28">
+    <section aria-labelledby="reviews-title" class="bg-enamel section-y">
       <div class="wrap">
         <p class="kicker">Patients</p>
         <h2 id="reviews-title" class="h-section">In their words</h2>
-        <ul class="mt-12 grid gap-10 md:grid-cols-3">
+        <ul class="mt-8 sm:mt-12 grid gap-10 md:grid-cols-3">
           {reviews.map((r) => (
             <li class="border-t-2 border-clinic pt-5">
               <blockquote class="text-[17px] text-ink">“{r.quote}”</blockquote>

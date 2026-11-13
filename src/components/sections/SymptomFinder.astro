@@ -12,19 +12,19 @@ const tabOff = 'border-white/35 text-white hover:border-white';
 
 <section aria-labelledby="finder-title" class="relative overflow-hidden bg-clinic-dark text-white">
   <ToothArch class="pointer-events-none absolute -right-24 -top-10 w-[560px] opacity-25" stroke="#FFFFFF" strokeWidth={1} />
-  <div class="wrap relative grid gap-12 py-20 md:py-24 lg:grid-cols-12">
-    <div class="lg:col-span-5">
+  <div class="wrap relative grid gap-8 py-14 sm:py-20 md:py-24 lg:grid-cols-12">
+    <div class="min-w-0 lg:col-span-5">
       <p class="mb-3 flex items-center gap-3 font-display text-[13px] font-semibold uppercase tracking-[0.14em] text-white/80">
         <span class="block h-px w-8 bg-white/60"></span> Not sure what you need?
       </p>
-      <h2 id="finder-title" class="text-[2rem] font-bold leading-[1.1] text-white sm:text-[2.6rem]">
+      <h2 id="finder-title" class="text-[1.8rem] font-bold leading-[1.12] text-white sm:text-[2.2rem] md:text-[2.6rem]">
         Tell us what’s bothering you.
       </h2>
-      <p class="mt-5 max-w-md text-[17px] text-white/85">
+      <p class="mt-4 max-w-md text-[16px] text-white/85 sm:mt-5 sm:text-[17px]">
         Pick the closest problem. We’ll tell you what it usually means and what we’d check — then you can ask
         us directly on WhatsApp.
       </p>
-      <div class="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Dental problems" data-finder-tabs data-on={tabOn} data-off={tabOff}>
+      <div class="no-scrollbar -mx-5 mt-7 flex snap-x gap-2 overflow-x-auto scroll-px-5 px-5 pb-1 sm:mx-0 sm:mt-8 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0" role="tablist" aria-label="Dental problems" data-finder-tabs data-on={tabOn} data-off={tabOff}>
         {
           symptoms.map((x) => (
             <button
@@ -34,7 +34,7 @@ const tabOff = 'border-white/35 text-white hover:border-white';
               aria-controls="finder-panel"
               data-symptom={x.id}
               class:list={[
-                'rounded border px-3.5 py-2 font-display text-[14.5px] font-semibold transition-colors',
+                'shrink-0 snap-start whitespace-nowrap rounded border px-3.5 py-2.5 font-display text-[14.5px] font-semibold transition-colors sm:py-2',
                 x.id === activeId ? tabOn : tabOff,
               ]}
             >
@@ -45,13 +45,13 @@ const tabOff = 'border-white/35 text-white hover:border-white';
       </div>
     </div>
 
-    <div id="finder-panel" role="tabpanel" aria-live="polite" class="lg:col-span-6 lg:col-start-7">
+    <div id="finder-panel" role="tabpanel" aria-live="polite" class="min-w-0 lg:col-span-6 lg:col-start-7">
       {
         symptoms.map((s) => (
           <div data-symptom-panel={s.id} hidden={s.id !== activeId}>
-            <div class="rounded-md bg-white p-7 text-slate md:p-9">
-              <div class="flex items-start justify-between gap-4">
-                <h3 class="text-[1.6rem] font-bold leading-tight">{s.label}</h3>
+            <div class="rounded-md bg-white p-5 text-slate sm:p-7 md:p-9">
+              <div class="flex flex-col-reverse items-start gap-2 min-[400px]:flex-row min-[400px]:justify-between min-[400px]:gap-4">
+                <h3 class="text-[1.45rem] font-bold leading-tight sm:text-[1.6rem]">{s.label}</h3>
                 {s.urgent && (
                   <span class="inline-flex shrink-0 items-center gap-1.5 rounded-sm bg-[#FCEDEA] px-2 py-1 text-[12px] font-semibold text-[#A3392B]">
                     <CircleExclamationPoint class="h-3.5 w-3.5" /> Don’t wait on this
@@ -116,6 +116,8 @@ const tabOff = 'border-white/35 text-white hover:border-white';
           b.classList.add(...(active ? on : off));
         });
         panels.forEach((p) => (p.hidden = p.dataset.symptomPanel !== id));
+        // On phones the chips are a swipe row: keep the tapped one fully in view
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
       })
     );
   }

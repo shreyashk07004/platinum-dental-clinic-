@@ -9,16 +9,16 @@ import WhatsAppIcon from '../ui/WhatsAppIcon.astro';
 const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
 ---
 
-<section id="book" aria-labelledby="book-title" class="bg-enamel py-20 md:py-28">
-  <div class="wrap grid gap-12 lg:grid-cols-12">
+<section id="book" aria-labelledby="book-title" class="bg-enamel section-y">
+  <div class="wrap grid gap-8 sm:gap-12 lg:grid-cols-12">
     <div class="reveal lg:col-span-4">
       <p class="kicker">Book a visit</p>
       <h2 id="book-title" class="h-section">Pick a time. We’ll confirm on WhatsApp.</h2>
-      <p class="mt-5 text-[16.5px]">
+      <p class="mt-4 text-[16px] sm:mt-5 sm:text-[16.5px]">
         Fill this in and WhatsApp opens with your request already written. Press send — we reply during OPD
         hours to confirm, or suggest the nearest free slot.
       </p>
-      <div class="mt-8 border-t border-line pt-6 text-[15px]">
+      <div class="mt-6 border-t border-line pt-5 text-[15px] sm:mt-8 sm:pt-6">
         <p class="font-semibold text-ink">Prefer to call?</p>
         <a href={`tel:${site.phoneRaw}`} class="mt-1 inline-flex items-center gap-2 font-display text-[22px] font-bold text-action hover:underline">
           <Phone class="h-5 w-5" /> {site.phoneDisplay}
@@ -27,7 +27,7 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
       </div>
     </div>
 
-    <form id="booking-form" novalidate class="reveal rounded-md border border-line bg-white p-6 md:p-9 lg:col-span-8">
+    <form id="booking-form" novalidate class="reveal rounded-md border border-line bg-white p-4 min-[380px]:p-5 sm:p-6 md:p-9 lg:col-span-8">
       <div class="grid gap-5 sm:grid-cols-2">
         <div>
           <label for="b-name" class="label">Full name</label>
@@ -36,7 +36,7 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
         </div>
         <div>
           <label for="b-phone" class="label">Mobile number</label>
-          <input id="b-phone" name="phone" class="field" inputmode="tel" autocomplete="tel" placeholder="98xxxxxxxx" aria-invalid="false" />
+          <input id="b-phone" name="phone" type="tel" class="field" inputmode="tel" autocomplete="tel" placeholder="98xxxxxxxx" aria-invalid="false" />
           <p id="phone-err" class={errClass} hidden></p>
         </div>
         <div>
@@ -55,7 +55,7 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
         </div>
         <div>
           <label for="b-date" class="label">Preferred date</label>
-          <input id="b-date" name="date" type="date" class="field" aria-invalid="false" />
+          <input id="b-date" name="date" type="date" class="field min-h-[50px]" aria-invalid="false" />
           <p id="date-err" class={errClass} hidden></p>
         </div>
         <div>
@@ -69,15 +69,15 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
           <label for="b-note" class="label">Anything we should know? <span class="font-normal text-slate-soft">(optional)</span></label>
           <textarea id="b-note" name="note" rows="3" class="field resize-y" placeholder="e.g. pain in lower left tooth since 3 days"></textarea>
         </div>
-        <label class="flex items-center gap-3 text-[15px] text-ink sm:col-span-2">
-          <input type="checkbox" name="firstVisit" checked class="h-4 w-4 accent-action" />
+        <label class="flex cursor-pointer items-center gap-3 py-1 text-[15px] text-ink sm:col-span-2">
+          <input type="checkbox" name="firstVisit" checked class="h-5 w-5 shrink-0 accent-action" />
           This is my first visit to the clinic
         </label>
       </div>
 
-      <div class="mt-7 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <div class="mt-7 flex flex-col-reverse gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <p class="text-[13px] text-slate-soft">Your details go only to the clinic’s WhatsApp. Nothing is stored on this website.</p>
-        <button type="submit" class="btn-primary shrink-0">
+        <button type="submit" class="btn-primary w-full shrink-0 sm:w-auto">
           <WhatsAppIcon class="h-[18px] w-[18px]" /> Send request on WhatsApp
         </button>
       </div>

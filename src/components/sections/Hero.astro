@@ -9,17 +9,17 @@ import OpdHours from './OpdHours.astro';
 <section aria-labelledby="hero-title" class="relative">
   {/* Upper band */}
   <div class="bg-enamel">
-    <div class="wrap grid items-center gap-10 pb-28 pt-8 md:pb-32 md:pt-12 lg:grid-cols-12 lg:gap-8">
+    <div class="wrap grid items-center gap-8 pb-24 pt-7 sm:gap-10 md:pb-32 md:pt-12 lg:grid-cols-12 lg:gap-8">
       <div class="lg:col-span-6">
-        <h1 id="hero-title" class="text-[2.4rem] font-bold leading-[1.06] sm:text-[3.2rem] lg:text-[3.4rem]">
+        <h1 id="hero-title" class="text-[2.2rem] font-bold leading-[1.08] [text-wrap:balance] min-[380px]:text-[2.4rem] sm:text-[3.2rem] lg:text-[3.4rem]">
           One of Kolhapur's{' '}
           <span class="text-action">most trusted</span> dental clinics.
         </h1>
-        <p class="mt-6 max-w-[34rem] text-[17.5px] leading-relaxed text-slate">
+        <p class="mt-5 max-w-[34rem] text-[16.5px] leading-relaxed text-slate sm:mt-6 sm:text-[17.5px]">
           Check-ups, root canals, implants and smile care by two specialist doctors — and a written
           plan explaining every step before anything begins.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="mt-7 grid gap-3 min-[400px]:flex min-[400px]:flex-wrap sm:mt-8">
           <a href={waLink(quickMessage())} target="_blank" rel="noopener noreferrer" class="btn-primary">
             <WhatsAppIcon class="h-[18px] w-[18px]" /> Book on WhatsApp
           </a>
@@ -28,7 +28,7 @@ import OpdHours from './OpdHours.astro';
           </a>
         </div>
         <p class="mt-6 text-[14px] text-slate-soft">
-          Dr. Aditi Kulkarni, MDS (Paediatric Dentistry) · Dr. Rohan Kulkarni, MDS (Prosthodontics)
+          <span class="block sm:inline">Dr. Aditi Kulkarni, MDS (Paediatric Dentistry)</span><span class="hidden sm:inline"> · </span><span class="block sm:inline">Dr. Rohan Kulkarni, MDS (Prosthodontics)</span>
         </p>
       </div>
 
@@ -42,7 +42,7 @@ import OpdHours from './OpdHours.astro';
           height="1050"
           fetchpriority="high"
         />
-        <p class="absolute bottom-3 left-3 rounded-sm bg-white/95 px-3 py-1.5 text-[12.5px] font-semibold text-ink">
+        <p class="absolute bottom-3 left-3 right-3 rounded-sm bg-white/95 px-3 py-1.5 text-[12.5px] font-semibold leading-snug text-ink sm:right-auto">
           We explain first. Treatment starts only when you’re ready.
         </p>
       </div>
@@ -50,7 +50,7 @@ import OpdHours from './OpdHours.astro';
   </div>
 
   {/* Overlapping OPD hours card: live status, 3D dial for today, weekly timetable */}
-  <div class="wrap relative -mt-20 md:-mt-24">
+  <div class="wrap relative -mt-16 md:-mt-24">
     <OpdHours />
   </div>
 </section>

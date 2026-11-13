@@ -5,7 +5,7 @@ import TreatmentDrawer from '../ui/TreatmentDrawer.astro';
 
 ---
 
-<section id="treatments" aria-labelledby="treatments-title" class="py-20 md:py-28">
+<section id="treatments" aria-labelledby="treatments-title" class="section-y">
   <div class="wrap">
     <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
       <div class="lg:col-span-7">
@@ -18,10 +18,10 @@ import TreatmentDrawer from '../ui/TreatmentDrawer.astro';
       </p>
     </div>
 
-    <div class="mt-14 space-y-14">
+    <div class="mt-10 sm:mt-14 space-y-10 sm:space-y-14">
       {
         treatmentGroups.map((g, gi) => (
-          <div class="reveal grid gap-4 lg:grid-cols-12">
+          <div class="reveal grid gap-3 sm:gap-4 lg:grid-cols-12">
             <div class="lg:col-span-3">
               <p class="font-display text-[13px] font-bold text-clinic-dark">0{gi + 1}</p>
               <h3 class="mt-1 text-[1.35rem] font-bold">{g.label}</h3>
@@ -34,14 +34,16 @@ import TreatmentDrawer from '../ui/TreatmentDrawer.astro';
                     <button
                       type="button"
                       data-drawer-open={t.id}
-                      class="group grid w-full gap-1 py-5 text-left sm:grid-cols-12 sm:items-baseline sm:gap-4"
+                      class="group grid w-full grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-4 text-left sm:grid-cols-12 sm:items-baseline sm:gap-4 sm:py-5"
                       aria-haspopup="dialog"
                     >
-                      <span class="font-display text-[18px] font-bold text-ink group-hover:text-action sm:col-span-4">{t.name}</span>
-                      <span class="text-[15px] text-slate sm:col-span-7">{t.fixes}</span>
-                      <span class="flex items-center justify-end sm:col-span-1">
-                        <Plus class="h-4 w-4 text-clinic transition-transform group-hover:rotate-90" />
+                      <span class="font-display text-[17px] font-bold text-ink group-hover:text-action sm:col-span-4 sm:text-[18px]">{t.name}</span>
+                      <span class="row-span-2 flex items-center justify-end self-center sm:order-last sm:col-span-1 sm:row-span-1 sm:self-auto">
+                        <span class="grid h-8 w-8 place-items-center rounded-full bg-clinic-light sm:h-auto sm:w-auto sm:bg-transparent">
+                          <Plus class="h-4 w-4 text-clinic transition-transform group-hover:rotate-90" />
+                        </span>
                       </span>
+                      <span class="text-[14.5px] leading-snug text-slate sm:col-span-7 sm:text-[15px]">{t.fixes}</span>
                     </button>
                   </li>
                 ))}

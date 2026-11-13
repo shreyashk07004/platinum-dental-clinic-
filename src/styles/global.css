@@ -3,12 +3,19 @@
 @tailwind utilities;
 
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  @media (min-width: 768px) { html { scroll-padding-top: 88px; } }
   body {
     @apply bg-white font-sans text-slate antialiased;
-    font-size: 16.5px;
+    font-size: 16px;
     line-height: 1.65;
+    overflow-x: clip;
+    -webkit-tap-highlight-color: rgba(26, 155, 215, 0.12);
   }
+  @media (min-width: 640px) { body { font-size: 16.5px; } }
+  img { max-width: 100%; }
+  /* Long words (emails, reg. numbers) wrap instead of pushing the page sideways */
+  p, li, dd, dt, h1, h2, h3 { overflow-wrap: break-word; }
   h1, h2, h3, h4 { @apply font-display text-ink; letter-spacing: -0.015em; }
   :focus-visible { outline: 2px solid #1A9BD7; outline-offset: 3px; }
   ::selection { background: #E3F3FB; color: #13294B; }
@@ -18,9 +25,10 @@
   .wrap { @apply mx-auto w-full max-w-content px-5 sm:px-8; }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded px-5 py-3 font-display text-[15px] font-semibold transition-colors duration-150;
+    @apply inline-flex min-h-[46px] items-center justify-center gap-2 rounded px-5 py-3 font-display text-[15px] font-semibold transition-colors duration-150;
+    touch-action: manipulation;
   }
-  .btn-primary { @apply btn bg-action text-white hover:bg-action-hover; }
+  .btn-primary { @apply btn bg-action text-white hover:bg-action-hover active:bg-action-hover; }
   .btn-outline { @apply btn border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-white; }
   .btn-light { @apply btn bg-white text-ink hover:bg-clinic-light; }
 
@@ -30,7 +38,10 @@
   }
   .kicker::before { content: ''; @apply block h-px w-8 bg-clinic; }
 
-  .h-section { @apply text-[2rem] font-bold leading-[1.1] sm:text-[2.6rem]; }
+  .h-section { @apply text-[1.8rem] font-bold leading-[1.12] [text-wrap:balance] sm:text-[2.2rem] md:text-[2.6rem] md:leading-[1.1]; }
+
+  /* Section spacing: tighter on phones so pages aren't endless scrolls */
+  .section-y { @apply py-14 sm:py-20 md:py-28; }
 
   .link-underline {
     background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
@@ -45,10 +56,14 @@
   }
 
   .field {
-    @apply w-full rounded border border-line bg-white px-3.5 py-3 text-[15px] text-ink placeholder:text-slate-soft/70 focus:border-clinic focus:outline-none focus:ring-2 focus:ring-clinic/20;
+    @apply w-full rounded border border-line bg-white px-3.5 py-3 text-base text-ink sm:text-[15px] placeholder:text-slate-soft/70 focus:border-clinic focus:outline-none focus:ring-2 focus:ring-clinic/20;
   }
   .label { @apply mb-1.5 block text-[13px] font-semibold text-ink; }
 }
+
+/* Horizontal swipe rows on phones (no visible scrollbar) */
+.no-scrollbar { scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 
 /* Scroll reveal */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms ease; }

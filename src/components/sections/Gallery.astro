@@ -3,19 +3,19 @@ import { gallery } from '../../data/gallery';
 import Lightbox from '../ui/Lightbox.astro';
 ---
 
-<section id="clinic" aria-labelledby="clinic-title" class="py-20 md:py-28">
+<section id="clinic" aria-labelledby="clinic-title" class="section-y">
   <div class="wrap">
     <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
       <div class="lg:col-span-7">
         <p class="kicker">Inside the clinic</p>
         <h2 id="clinic-title" class="h-section">Two treatment rooms, daylight, and equipment you can see being cleaned.</h2>
       </div>
-      <p class="text-[15.5px] text-slate-soft lg:col-span-4 lg:col-start-9">
+      <p class="text-[15px] text-slate-soft sm:text-[15.5px] lg:col-span-4 lg:col-start-9">
         Instruments go through a Class B autoclave after every patient, and each pouch is opened at the chair.
       </p>
     </div>
 
-    <ul class="reveal mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+    <ul class="reveal mt-8 sm:mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
       {
         gallery.map((g, i) => (
           <li class={g.span === 'wide' ? 'col-span-2' : ''}>
@@ -35,7 +35,7 @@ import Lightbox from '../ui/Lightbox.astro';
                 loading="lazy"
               />
             </button>
-            <p class="mt-2 text-[13px] text-slate-soft">{g.caption}</p>
+            <p class="mt-1.5 text-[12.5px] leading-snug text-slate-soft sm:mt-2 sm:text-[13px]">{g.caption}</p>
           </li>
         ))
       }

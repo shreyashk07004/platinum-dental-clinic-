@@ -10,20 +10,20 @@ const promise = [
 ];
 ---
 
-<section id="about" aria-labelledby="about-title" class="py-20 md:py-28">
-  <div class="wrap grid gap-12 lg:grid-cols-12 lg:gap-10">
+<section id="about" aria-labelledby="about-title" class="section-y">
+  <div class="wrap grid gap-14 lg:grid-cols-12 lg:gap-10">
     <div class="reveal relative lg:col-span-5">
       <img
         src="/images/clinic-operatory.jpg"
         alt="Treatment room at the clinic with dental chair and overhead lamp"
-        class="aspect-[4/5] w-full rounded-md object-cover"
+        class="aspect-[4/3] w-full rounded-md object-cover sm:aspect-[4/5]"
         loading="lazy"
         width="1200"
         height="1500"
       />
-      <div class="absolute -bottom-6 right-4 rounded-md bg-white px-5 py-4 shadow-[0_1px_0_#DCE5EE,0_0_0_1px_#DCE5EE] sm:-right-6">
-        <p class="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-soft">In Kolhapur since</p>
-        <p class="outline-numeral text-[4.5rem]">{site.established}</p>
+      <div class="absolute -bottom-6 right-4 rounded-md bg-white px-4 py-3 sm:px-5 sm:py-4 shadow-[0_1px_0_#DCE5EE,0_0_0_1px_#DCE5EE] sm:-right-6">
+        <p class="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-slate-soft sm:text-[12px] sm:tracking-[0.16em]">In Kolhapur since</p>
+        <p class="outline-numeral text-[3.25rem] sm:text-[4.5rem]">{site.established}</p>
       </div>
     </div>
 
@@ -32,7 +32,7 @@ const promise = [
       <h2 id="about-title" class="h-section max-w-xl">
         A neighbourhood clinic run by two specialists.
       </h2>
-      <div class="mt-6 max-w-2xl space-y-4 text-[17px]">
+      <div class="mt-5 max-w-2xl space-y-4 text-[16px] sm:mt-6 sm:text-[17px]">
         <p>
           {site.name} is a
           two-chair clinic on the third floor of Krystal Square, Nagala Park. Dr. Rohan started it in {site.established};
@@ -45,7 +45,7 @@ const promise = [
         </p>
       </div>
 
-      <div class="mt-10 border-t border-line pt-8">
+      <div class="mt-8 border-t border-line pt-7 sm:mt-10 sm:pt-8">
         <h3 class="font-display text-[19px] font-bold">Our clinic promise</h3>
         <ul class="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
           {

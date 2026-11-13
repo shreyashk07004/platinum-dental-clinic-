@@ -6,15 +6,15 @@ import { ChevronsLeftRight } from '@lucide/astro';
 import { cases } from '../../data/beforeAfter';
 ---
 
-<section id="results" aria-labelledby="results-title" class="py-20 md:py-28">
+<section id="results" aria-labelledby="results-title" class="section-y">
   <div class="wrap">
     <div class="reveal mx-auto max-w-2xl text-center">
       <p class="kicker justify-center">Real results</p>
       <h2 id="results-title" class="h-section">Before &amp; after</h2>
-      <p class="mt-4 text-[17px]">Slide across each picture to see the change.</p>
+      <p class="mt-4 text-[16px] sm:text-[17px]">Drag across each picture to see the change.</p>
     </div>
 
-    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-8 grid gap-8 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
       {
         cases.map((c) => (
           <figure class="reveal">

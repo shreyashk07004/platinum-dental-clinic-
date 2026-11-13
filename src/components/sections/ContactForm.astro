@@ -8,29 +8,29 @@ import WhatsAppIcon from '../ui/WhatsAppIcon.astro';
 const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
 ---
 
-<section id="contact-form" aria-labelledby="contact-form-title" class="py-20 md:py-28">
-  <div class="wrap grid gap-12 lg:grid-cols-12">
+<section id="contact-form" aria-labelledby="contact-form-title" class="section-y">
+  <div class="wrap grid gap-8 sm:gap-12 lg:grid-cols-12">
     <div class="reveal lg:col-span-4">
       <p class="kicker">Write to us</p>
       <h2 id="contact-form-title" class="h-section">Send us a message.</h2>
-      <p class="mt-5 text-[16.5px]">
+      <p class="mt-4 text-[16px] sm:mt-5 sm:text-[16.5px]">
         Patients, suppliers, students looking for an internship, anyone. Fill this in and WhatsApp opens with
         your message already written. Just press send.
       </p>
-      <ul class="mt-8 space-y-3 border-t border-line pt-6 text-[15px]">
+      <ul class="mt-6 space-y-1 border-t border-line pt-5 text-[15px] sm:mt-8 sm:space-y-3 sm:pt-6">
         <li class="flex items-center gap-3">
           <Phone class="h-5 w-5 shrink-0 text-clinic-dark" />
-          <a href={`tel:${site.phoneRaw}`} class="font-semibold text-ink hover:text-action">{site.phoneDisplay}</a>
+          <a href={`tel:${site.phoneRaw}`} class="py-1.5 font-semibold text-ink hover:text-action">{site.phoneDisplay}</a>
         </li>
         <li class="flex items-center gap-3">
           <Mail class="h-5 w-5 shrink-0 text-clinic-dark" />
-          <a href={`mailto:${site.email}`} class="hover:text-action">{site.email}</a>
+          <a href={`mailto:${site.email}`} class="break-all py-1.5 hover:text-action">{site.email}</a>
         </li>
       </ul>
       <p class="mt-4 text-[14px] text-slate-soft">Want to book a visit? Use the <a href="/book" class="font-semibold text-action hover:underline">booking page</a> to pick a date and time.</p>
     </div>
 
-    <form id="contact-form-el" novalidate class="reveal rounded-md border border-line bg-white p-6 md:p-9 lg:col-span-8">
+    <form id="contact-form-el" novalidate class="reveal rounded-md border border-line bg-white p-4 min-[380px]:p-5 sm:p-6 md:p-9 lg:col-span-8">
       <div class="grid gap-5 sm:grid-cols-2">
         <div>
           <label for="c-name" class="label">Full name</label>
@@ -39,7 +39,7 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
         </div>
         <div>
           <label for="c-phone" class="label">Mobile number</label>
-          <input id="c-phone" name="phone" class="field" inputmode="tel" autocomplete="tel" placeholder="98xxxxxxxx" aria-invalid="false" />
+          <input id="c-phone" name="phone" type="tel" class="field" inputmode="tel" autocomplete="tel" placeholder="98xxxxxxxx" aria-invalid="false" />
           <p id="c-phone-err" class={errClass} hidden></p>
         </div>
         <div>
@@ -53,14 +53,14 @@ const errClass = 'mt-1 text-[13px] font-medium text-[#B23A2B]';
         </div>
         <div class="sm:col-span-2">
           <label for="c-message" class="label">Message</label>
-          <textarea id="c-message" name="message" rows="5" class="field resize-y" aria-invalid="false" placeholder="Write your message here"></textarea>
+          <textarea id="c-message" name="message" rows="4" class="field resize-y" aria-invalid="false" placeholder="Write your message here"></textarea>
           <p id="c-message-err" class={errClass} hidden></p>
         </div>
       </div>
 
-      <div class="mt-7 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <div class="mt-7 flex flex-col-reverse gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <p class="text-[13px] text-slate-soft">Your message goes only to the clinic’s WhatsApp. Nothing is stored on this website.</p>
-        <button type="submit" class="btn-primary shrink-0">
+        <button type="submit" class="btn-primary w-full shrink-0 sm:w-auto">
           <WhatsAppIcon class="h-[18px] w-[18px]" /> Send on WhatsApp
         </button>
       </div>
