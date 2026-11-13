@@ -35,5 +35,6 @@ export const nav = [
   { label: 'Treatments', href: '/treatments' },
   { label: 'Doctors', href: '/doctors' },
   { label: 'Clinic', href: '/clinic' },
+  { label: 'Achievements', href: '/achievements' },
   { label: 'Contact', href: '/contact' },
 ];

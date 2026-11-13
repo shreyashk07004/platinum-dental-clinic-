@@ -49,3 +49,6 @@ One entry per service on the clinic's Google Business Profile. **The client does
 - `reviews`: **real** Google reviews (first name + initial). They scroll in the bar fixed to the bottom of every page (`src/components/ui/ReviewsBar.astro`).
 - `videos`: the home page "Patient reviews" video cards are **demo samples** (a CC0 clip and clinic photos as posters, tagged "Sample video"). For each real testimonial, set `src` (a file in `public/videos/`) or `youtubeId`, plus `poster`, `title` and `caption`, and delete `isSample`.
 - **Live Google reviews** (`src/utils/googleReviews.js`): the "Google reviews" section and the bottom reviews bar read the clinic's rating, count and up to 5 reviews from the **Google Places API (New)** when the site is built. Copy `.env.example` to `.env` (or set the same variables on the host) and add `GOOGLE_PLACES_API_KEY`. Without a key, or if Google returns an error, the saved reviews in `src/data/reviews.js` are used. Rebuild the site regularly (e.g. a daily scheduled deploy) to pick up new reviews.
+
+## Achievements — `src/data/achievements.js`
+**All sample content.** Headline stats, awards/certifications (title, year, awarding body, text) and the milestones timeline are placeholders. Replace with the clinic's real achievements, or delete entries you don't need.
