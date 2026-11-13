@@ -16,6 +16,7 @@ export const site = {
 
   addressLines: ['3rd Floor, Krystal Square, 100 Ft Road', 'Nagala Park, Kolhapur 416002'],
   landmark: 'Near Khanvilkar petrol pump',
+  geo: { lat: 16.70773186636489, lng: 74.22902899814996 }, // exact clinic pin from Google Maps
   parking: 'Two-wheeler parking in front; cars on the 4th Lane side road.', // TODO: confirm with clinic
   mapsLink: 'https://www.google.com/maps/search/?api=1&query=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur',
   mapEmbed: 'https://www.google.com/maps?q=Platinum+Dental+Care,+Krystal+Square,+Nagala+Park,+Kolhapur&t=k&z=18&output=embed', // t=k = satellite view
